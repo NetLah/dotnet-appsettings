@@ -7,17 +7,18 @@ namespace DotnetAppSettings.Test
 {
     public class ConvertTest
     {
-        private readonly List<AzureAppSetting> settings = new()
-        {
-            new AzureAppSetting { Name = "Key1", Value = "Value1" },
-            new AzureAppSetting { Name = "Key2__Sub2", Value = "2021" },
-            new AzureAppSetting { Name = "Parrent__Array6__0__Name", Value = "Element1" },
-            new AzureAppSetting { Name = "Parrent__Array6__1__Additional", Value = "Add2" },
-            new AzureAppSetting { Name = "Parrent__Array6__1__Name", Value = "Element2" },
-            new AzureAppSetting { Name = "Parrent__Child1__Key3", Value = "Value3" },
-            new AzureAppSetting { Name = "Parrent__Child1__Key4", Value = "" },
-            new AzureAppSetting { Name = "Parrent__Child1__Key5", Value = "" },
-        };
+        private static List<AzureAppSetting> GetSettings(bool? slotSetting)
+            => new()
+            {
+                new AzureAppSetting { Name = "Key1", Value = "Value1", SlotSetting = slotSetting },
+                new AzureAppSetting { Name = "Key2__Sub2", Value = "2021", SlotSetting = slotSetting },
+                new AzureAppSetting { Name = "Parrent__Array6__0__Name", Value = "Element1", SlotSetting = slotSetting },
+                new AzureAppSetting { Name = "Parrent__Array6__1__Additional", Value = "Add2", SlotSetting = slotSetting },
+                new AzureAppSetting { Name = "Parrent__Array6__1__Name", Value = "Element2", SlotSetting = slotSetting },
+                new AzureAppSetting { Name = "Parrent__Child1__Key3", Value = "Value3", SlotSetting = slotSetting },
+                new AzureAppSetting { Name = "Parrent__Child1__Key4", Value = "", SlotSetting = slotSetting },
+                new AzureAppSetting { Name = "Parrent__Child1__Key5", Value = "", SlotSetting = slotSetting },
+            };
 
         private IConfigurationRoot GetAppsettingsConfiguration(string resourceName = "DotnetAppSettings.Test.appsettings.json")
         {
@@ -38,9 +39,19 @@ namespace DotnetAppSettings.Test
         {
             var service = new ConfigurationConverter(GetAppsettingsConfiguration());
 
-            var result = service.ConvertSettings();
+            var result = service.ConvertSettings(false);
 
-            Assert.Equal(result, settings, new AzureAppSettingComparer());
+            Assert.Equal(result, GetSettings(false), new AzureAppSettingComparer());
+        }
+
+        [Fact]
+        public void ConfigurationConvert_SkipSlotSettingTest()
+        {
+            var service = new ConfigurationConverter(GetAppsettingsConfiguration());
+
+            var result = service.ConvertSettings(null);
+
+            Assert.Equal(result, GetSettings(null), new AzureAppSettingComparer());
         }
 
         private class AzureAppSettingComparer : IEqualityComparer<AzureAppSetting>
@@ -52,7 +63,7 @@ namespace DotnetAppSettings.Test
 
             public int GetHashCode([DisallowNull] AzureAppSetting obj)
                 => (obj.Name?.GetHashCode() ?? 0) ^
-                obj.SlotSetting.GetHashCode() ^
+                (obj.SlotSetting?.GetHashCode() ?? 0) ^
                 (obj.Value?.GetHashCode() ?? 0);
         }
     }

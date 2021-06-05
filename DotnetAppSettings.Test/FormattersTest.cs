@@ -9,8 +9,9 @@ namespace DotnetAppSettings.Test
     {
         private readonly List<AzureAppSetting> settings = new()
         {
-            new AzureAppSetting { Name = "KEY", Value = "VALUE1" },
+            new AzureAppSetting { Name = "KEY", Value = "VALUE1", SlotSetting = false },
             new AzureAppSetting { Name = "key__subkey", Value = "Value2", SlotSetting = true },
+            new AzureAppSetting { Name = "array3__0", Value = "Value3", SlotSetting = null },
         };
 
         private static string ReadContent(MemoryStream stream)
@@ -40,6 +41,10 @@ namespace DotnetAppSettings.Test
     ""name"": ""key__subkey"",
     ""value"": ""Value2"",
     ""slotSetting"": true
+  },
+  {
+    ""name"": ""array3__0"",
+    ""value"": ""Value3""
   }
 ]", context);
         }
@@ -61,6 +66,10 @@ SlotSetting=False
 key__subkey
 Value2
 SlotSetting=True
+
+array3__0
+Value3
+SlotSetting=
 ", context);
         }
     }

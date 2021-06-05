@@ -23,13 +23,13 @@ namespace DotnetAppSettings
             return builder.Build();
         }
 
-        public List<AzureAppSetting> ConvertSettings()
+        public List<AzureAppSetting> ConvertSettings(bool? slotSetting)
         {
             var result = _configuration
                     .AsEnumerable(false)
                     .Where(kv => kv.Value != null)
                     .OrderBy(kv => kv.Key)
-                    .Select(kv => new AzureAppSetting { Name = kv.Key.Replace(":", "__"), Value = kv.Value })
+                    .Select(kv => new AzureAppSetting { Name = kv.Key.Replace(":", "__"), Value = kv.Value, SlotSetting = slotSetting })
                     .ToList();
 
             return result;

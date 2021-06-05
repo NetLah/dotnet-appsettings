@@ -167,9 +167,10 @@ Command line tool path:
   "C:\Development\Project1\tools\appsettings.exe" [appsettings.json [appsettings.Production.json]]
 
 Parameters:
-  -p|--path           path to appsettings.json, appsettings.Production.json
-  -o|--output-file    path to output-file.json
-  -t|--text           output in text format
-  -?|-h|--help        help
-  --version           version of this tool
+  -p|--path             path to appsettings.json, appsettings.Production.json
+  -o|--output-file      path to output-file.json
+  -t|--text             output in text format
+  --skip-slot-setting   skip SlotSetting=false
+  -?|-h|--help          help
+  --version             version of this tool
 ```

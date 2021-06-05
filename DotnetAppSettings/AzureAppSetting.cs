@@ -11,6 +11,7 @@ namespace DotnetAppSettings
         public string Value { get; set; }
 
         [JsonPropertyName("slotSetting")]
-        public bool SlotSetting { get; set; }
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        public bool? SlotSetting { get; set; }
     }
 }
