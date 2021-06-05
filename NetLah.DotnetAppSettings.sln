@@ -7,6 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotnetAppSettings", "Dotnet
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{B6BF3F5E-0D15-47B5-A814-06EB4612ED1C}"
 	ProjectSection(SolutionItems) = preProject
+		.azure\pipelines\azure-pipelines.yml = .azure\pipelines\azure-pipelines.yml
 		.editorconfig = .editorconfig
 		Directory.Build.props = Directory.Build.props
 		Directory.Build.targets = Directory.Build.targets
@@ -14,7 +15,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotnetAppSettings.Test", "DotnetAppSettings.Test\DotnetAppSettings.Test.csproj", "{E14728A7-71ED-45C2-A0BA-2939B26150AE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotnetAppSettings.Test", "DotnetAppSettings.Test\DotnetAppSettings.Test.csproj", "{E14728A7-71ED-45C2-A0BA-2939B26150AE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
