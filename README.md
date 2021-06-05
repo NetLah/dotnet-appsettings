@@ -76,6 +76,34 @@ A tool to convert appsettings.json files to json name-value format support bulk 
 ]
 ```
 
+- Text format for manually update Azure AppService / Configuration / Application Settings
+
+```txt
+AllowedHosts
+*
+SlotSetting=False
+
+Array__0__Name
+Value1
+SlotSetting=False
+
+Array__1__Name
+Value2
+SlotSetting=False
+
+Logging__LogLevel__Default
+Information
+SlotSetting=False
+
+Logging__LogLevel__Microsoft
+Warning
+SlotSetting=False
+
+Logging__LogLevel__Microsoft.Hosting.Lifetime
+Information
+SlotSetting=False
+```
+
 ### Installation dotnet tool globally
 
 Download and install the [.NET Core 3.1 SDK](https://dotnet.microsoft.com/download/dotnet/3.1) or [.NET Core 5 SDK](https://dotnet.microsoft.com/download/dotnet/5.0) or newer. Once installed the .NET Core SDK, run the following command:
@@ -134,6 +162,9 @@ Command line global:
 
 Command line local:
   dotnet appsettings [appsettings.json [appsettings.Production.json]]
+
+Command line tool path:
+  "C:\Development\Project1\tools\appsettings.exe" [appsettings.json [appsettings.Production.json]]
 
 Parameters:
   -p|--path           path to appsettings.json, appsettings.Production.json
