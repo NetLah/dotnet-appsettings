@@ -2,6 +2,18 @@
 
 A tool to convert appsettings.json files to json name-value format support bulk update to Application Settings on Azure AppService.
 
+## Nuget package
+
+[![NuGet](https://img.shields.io/nuget/v/dotnet-appsettings.svg?style=flat-square&label=nuget&colorB=00b200)](https://www.nuget.org/packages/dotnet-appsettings/)
+
+## Build Status
+
+[![Build Status](https://img.shields.io/endpoint.svg?url=https%3A%2F%2Factions-badge.atrox.dev%2FNetLah%2Fdotnet-appsettings%2Fbadge%3Fref%3Dmain&style=flat)](https://actions-badge.atrox.dev/NetLah/dotnet-appsettings/goto?ref=main)
+
+## Getting started
+
+### Samples
+
 - appsettings.json
 
 ```json
@@ -63,8 +75,6 @@ A tool to convert appsettings.json files to json name-value format support bulk 
   }
 ]
 ```
-
-## Getting started
 
 ### Installation dotnet tool globally
 
