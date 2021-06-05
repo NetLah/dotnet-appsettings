@@ -1,0 +1,9 @@
+{
+  "profiles": {
+    "DotnetAppSettings": {
+      "commandName": "Project",
+      "commandLineArgs": "-p ../samples -v",
+      "workingDirectory": "."
+    }
+  }
+}

@@ -1,0 +1,32 @@
+name: .NET Core
+
+on:
+  push:
+    branches: [main]
+    tags: ["*.*.*"]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        runs-on: [macOS-latest, ubuntu-latest, windows-latest]
+    name: ${{ matrix.runs-on }}
+    runs-on: ${{ matrix.runs-on }}
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Install dependencies
+        run: dotnet restore
+      - name: Build
+        run: dotnet build --configuration Release --no-restore
+      - name: Test
+        run: dotnet test -c Release --no-build --verbosity normal
+      - name: Pack
+        run: dotnet pack -c Release -o ./artifacts/packages/ --no-build
+      - if: ${{ success() && runner.os == 'Windows' && (github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/tags/')) }}
+        name: Push MyGet
+        run: dotnet nuget push .\artifacts\packages\*.nupkg -s https://www.myget.org/F/netlah/api/v2/package -k ${{ secrets.MYGET }}

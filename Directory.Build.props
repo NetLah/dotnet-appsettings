@@ -1,0 +1,38 @@
+<Project>
+
+  <PropertyGroup>
+    <PackageTags>NetLah;.NetCore;ASP.NETCore</PackageTags>
+    <Authors>ThoHo; NetLah</Authors>
+    <Company>NetLah</Company>
+    <Copyright>NetLah</Copyright>
+    <Product>NetLah .NET</Product>
+
+    <!--PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance-->
+    <!--PackageLicenseFile>LICENSE</PackageLicenseFile-->
+
+    <!--PackageIcon>icon.png</PackageIcon-->
+    <PackageProjectUrl>https://github.com/NetLah/dotnet-appsettings</PackageProjectUrl>
+    <PackageReleaseNotes>https://github.com/NetLah/dotnet-appsettings/releases</PackageReleaseNotes>
+
+    <!-- Publish the repository URL in the built .nupkg (in the NuSpec <Repository> element) -->
+    <PublishRepositoryUrl>false</PublishRepositoryUrl>
+
+    <!-- Embed source files that are not tracked by the source control manager in the PDB -->
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+
+    <LangVersion>9.0</LangVersion>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(TEAMCITY_VERSION)' != '' OR '$(CI)' == 'true' OR '$(TF_BUILD)' == 'true' OR '$(GITHUB_ACTIONS)' == 'true'">
+    <!-- Recommended: Embed symbols containing Source Link in the main file (exe/dll) -->
+    <DebugType>embedded</DebugType>
+
+    <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
+    <ContinuousIntegrationBuild>True</ContinuousIntegrationBuild>
+  </PropertyGroup>
+
+  <ItemGroup Condition=" '$(TEAMCITY_VERSION)' != '' OR '$(CI)' == 'true' OR '$(TF_BUILD)' == 'true' OR '$(GITHUB_ACTIONS)' == 'true'">
+    <PackageReference Include="Microsoft.SourceLink.GitHub" PrivateAssets="All" />
+  </ItemGroup>
+  
+</Project>
