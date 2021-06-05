@@ -81,27 +81,21 @@ A tool to convert appsettings.json files to json name-value format support bulk 
 ```txt
 AllowedHosts
 *
-SlotSetting=False
 
 Array__0__Name
 Value1
-SlotSetting=False
 
 Array__1__Name
 Value2
-SlotSetting=False
 
 Logging__LogLevel__Default
 Information
-SlotSetting=False
 
 Logging__LogLevel__Microsoft
 Warning
-SlotSetting=False
 
 Logging__LogLevel__Microsoft.Hosting.Lifetime
 Information
-SlotSetting=False
 ```
 
 ### Installation dotnet tool globally

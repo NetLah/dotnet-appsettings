@@ -61,15 +61,12 @@ namespace DotnetAppSettings.Test
 
             Assert.Equal(@"KEY
 VALUE1
-SlotSetting=False
 
 key__subkey
 Value2
-SlotSetting=True
 
 array3__0
 Value3
-SlotSetting=
 ", context);
         }
     }
