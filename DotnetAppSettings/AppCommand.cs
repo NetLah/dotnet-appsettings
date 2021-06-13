@@ -12,6 +12,7 @@ namespace DotnetAppSettings
         private CommandArgument _appsettingJsonArgs;
         private CommandOption _path;
         private CommandOption _outputFile;
+        private CommandOption _environemntFormat;
         private CommandOption _textFormat;
         private CommandOption _skipSlotSetting;
 
@@ -22,6 +23,7 @@ namespace DotnetAppSettings
             _appsettingJsonArgs = command.Argument("appsettingsFiles", "appsettings.json appsettings.Production.json", true);
             _path = command.Option("-p|--path", "path to appsettings.json, appsettings.Production.json", CommandOptionType.SingleValue);
             _outputFile = command.Option("-o|--output-file", "path to output-file.json", CommandOptionType.SingleValue);
+            _environemntFormat = command.Option("-e|--environment", "output in docker compose environment", CommandOptionType.NoValue);
             _textFormat = command.Option("-t|--text", "output in text format", CommandOptionType.NoValue);
             _skipSlotSetting = command.Option("--skip-slot-setting", "skip SlotSetting=false", CommandOptionType.NoValue);
 
@@ -78,7 +80,7 @@ namespace DotnetAppSettings
 
             try
             {
-                var formatter = _textFormat.HasValue() ? (IOutputFormatter)new TextOutputFormatter() : new JsonOutputFormatter();
+                var formatter = FormatterFactory.Create(_environemntFormat.HasValue(), _textFormat.HasValue());
                 var converter = new ConfigurationConverter(pathAppsettingJsons);
                 await formatter.WriteAsync(output, converter.ConvertSettings(_skipSlotSetting.HasValue() ? new bool?() : false));
 

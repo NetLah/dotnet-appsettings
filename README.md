@@ -1,6 +1,6 @@
 # dotnet-appsettings - .NET tools
 
-A tool to convert appsettings.json files to json name-value format support bulk update to Application Settings on Azure AppService.
+A tool to convert appsettings.json files to Docker Compose environment format or json name-value format support bulk update to Application Settings on Azure AppService.
 
 ## Nuget package
 
@@ -35,6 +35,20 @@ A tool to convert appsettings.json files to json name-value format support bulk 
   ],
   "AllowedHosts": "*"
 }
+```
+
+- Environment format for Docker compose
+
+```yml
+services:
+  webapi:
+    environment:
+      - AllowedHosts=*
+      - Array__0__Name=Value1
+      - Array__1__Name=Value2
+      - Logging__LogLevel__Default=Information
+      - Logging__LogLevel__Microsoft=Warning
+      - Logging__LogLevel__Microsoft.Hosting.Lifetime=Information
 ```
 
 - Azure AppService / Configuration / Application Settings / Advanced edit (https://docs.microsoft.com/en-us/azure/app-service/configure-common#edit-in-bulk)
@@ -163,6 +177,7 @@ Command line tool path:
 Parameters:
   -p|--path             path to appsettings.json, appsettings.Production.json
   -o|--output-file      path to output-file.json
+  -e|--environment      output in docker compose environment
   -t|--text             output in text format
   --skip-slot-setting   skip SlotSetting=false
   -?|-h|--help          help

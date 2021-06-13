@@ -3,7 +3,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace DotnetAppSettings
+namespace DotnetAppSettings.Formatters
 {
     internal class TextOutputFormatter : IOutputFormatter
     {

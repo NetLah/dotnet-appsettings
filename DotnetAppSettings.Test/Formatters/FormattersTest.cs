@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
+using DotnetAppSettings.Formatters;
 using Xunit;
 
-namespace DotnetAppSettings.Test
+namespace DotnetAppSettings.Test.Formatters
 {
     public class FormattersTest
     {
@@ -67,6 +68,22 @@ Value2
 
 array3__0
 Value3
+", context);
+        }
+
+        [Fact]
+        public async Task EnvironmentOutputFormatterTest()
+        {
+            var service = new EnvironmentOutputFormatter();
+            using var stream = new MemoryStream();
+
+            await service.WriteAsync(stream, settings);
+
+            var context = ReadContent(stream);
+
+            Assert.Equal(@"- KEY=VALUE1
+- key__subkey=Value2
+- array3__0=Value3
 ", context);
         }
     }
