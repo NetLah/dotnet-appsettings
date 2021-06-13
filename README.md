@@ -37,7 +37,7 @@ A tool to convert appsettings.json files to Docker Compose environment format or
 }
 ```
 
-- Environment format for Docker compose
+- Environment format for Docker compose file `docker-compose.yml`
 
 ```yml
 services:
