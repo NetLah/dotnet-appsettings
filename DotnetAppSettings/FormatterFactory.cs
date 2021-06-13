@@ -10,7 +10,7 @@ namespace DotnetAppSettings
                 return new EnvironmentOutputFormatter();
 
             return isText ?
-                new TextOutputFormatter() :
+                 (IOutputFormatter)new TextOutputFormatter() :
                 new JsonOutputFormatter();
         }
     }
