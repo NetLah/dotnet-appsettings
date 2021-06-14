@@ -9,6 +9,7 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <Description>Dotnet tool AppSettings convert appsettings.json to Azure AppService Application Settings</Description>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
 
   <ItemGroup>
@@ -18,7 +19,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="..\LICENSE" Pack="true" PackagePath="" />
+    <None Include="..\LICENSE" Pack="true" PackagePath="\" />
+    <None Include="..\README.md" Pack="true" PackagePath="\" />
   </ItemGroup>
 
 </Project>
