@@ -53,7 +53,7 @@ services:
 
 - Azure AppService / Configuration / Application Settings / Advanced edit (https://docs.microsoft.com/en-us/azure/app-service/configure-common#edit-in-bulk)
 
-![Edit in bulk](docs/bulk-edit-app-settings.png)
+![Edit in bulk](https://raw.githubusercontent.com/NetLah/dotnet-appsettings/main/docs/bulk-edit-app-settings.png)
 
 ```json
 [
