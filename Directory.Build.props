@@ -8,14 +8,13 @@
     <Product>NetLah .NET</Product>
 
     <!--PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance-->
-    <!--PackageLicenseFile>LICENSE</PackageLicenseFile-->
 
     <!--PackageIcon>icon.png</PackageIcon-->
     <PackageProjectUrl>https://github.com/NetLah/dotnet-appsettings</PackageProjectUrl>
     <PackageReleaseNotes>https://github.com/NetLah/dotnet-appsettings/releases</PackageReleaseNotes>
 
     <!-- Publish the repository URL in the built .nupkg (in the NuSpec <Repository> element) -->
-    <PublishRepositoryUrl>false</PublishRepositoryUrl>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
 
     <!-- Embed source files that are not tracked by the source control manager in the PDB -->
     <EmbedUntrackedSources>true</EmbedUntrackedSources>
