@@ -114,7 +114,7 @@ Information
 
 ### Installation dotnet tool globally
 
-Download and install the [.NET Core 3.1 SDK](https://dotnet.microsoft.com/download/dotnet/3.1) or [.NET Core 5 SDK](https://dotnet.microsoft.com/download/dotnet/5.0) or newer. Also make sure .NETCore Runtime 3.1 installed on the development environment. Once installed the .NET Core SDK, run the following command:
+Download and install the [.NET Core 3.1 SDK](https://dotnet.microsoft.com/download/dotnet/3.1) or [.NET Core 5 SDK](https://dotnet.microsoft.com/download/dotnet/5.0) or newer. Once installed the .NET Core SDK, run the following command:
 
 ```
 dotnet tool install --global dotnet-appsettings
