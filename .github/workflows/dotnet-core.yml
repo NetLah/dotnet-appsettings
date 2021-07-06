@@ -40,6 +40,4 @@ jobs:
         run: dotnet nuget push .\artifacts\packages\*.nupkg -s https://www.myget.org/F/netlah/api/v2/package -k ${{ secrets.MYGET }}
       - if: ${{ success() && runner.os == 'Windows' && (github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/tags/')) }}
         name: Publish Nuget to GitHub registry
-        run: dotnet nuget push .\artifacts\packages\*.nupkg -s https://nuget.pkg.github.com/NetLah/index.json -k ${GITHUB_PUSH_TOKEN} --no-symbols
-        env:
-          GITHUB_PUSH_TOKEN: ${{ secrets.PUSH_GITHUB_REGISTRY_TOKEN }}
+        run: dotnet nuget push .\artifacts\packages\*.nupkg -s https://nuget.pkg.github.com/NetLah/index.json -k ${{ secrets.PUSH_GITHUB_REGISTRY_TOKEN }}
