@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Extensions.CommandLineUtils;
 
@@ -84,7 +85,11 @@ namespace DotnetAppSettings
                 var converter = new ConfigurationConverter(pathAppsettingJsons);
                 await formatter.WriteAsync(output, converter.ConvertSettings(_skipSlotSetting.HasValue() ? new bool?() : false));
 
-                if (!isOutputFile)
+                if (isOutputFile)
+                {
+                    await output.WriteAsync(Encoding.ASCII.GetBytes(Environment.NewLine));
+                }
+                else
                 {
                     output.Position = 0;
                     using var reader = new StreamReader(output);
