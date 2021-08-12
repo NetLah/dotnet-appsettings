@@ -10,12 +10,5 @@ namespace DotnetAppSettings
 
             base.Configure(command);
         }
-
-        /// Use in case show help by default
-        ///protected override Task<int> ExecuteAsync()
-        ///{
-        ///    Command.ShowHelp();
-        ///    return base.ExecuteAsync();
-        ///}
     }
 }
