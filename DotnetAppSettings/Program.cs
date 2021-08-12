@@ -10,7 +10,7 @@ namespace DotnetAppSettings
             try
             {
                 var app = new CommandLineApplication(throwOnUnexpectedArg: true);
-                new AppCommand().Configure(app);
+                new RootCommand().Configure(app);
                 var result = app.Execute(args);
                 return result;
             }

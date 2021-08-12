@@ -1,5 +1,4 @@
-﻿using System;
-using System.Reflection;
+﻿using System.Reflection;
 using System.Threading.Tasks;
 using Microsoft.Extensions.CommandLineUtils;
 
@@ -11,8 +10,6 @@ namespace DotnetAppSettings
         {
             VerboseOption = command.Option("-v|--verbose", "Show verbose output.", CommandOptionType.NoValue);
 
-            command.VersionOption("--version", GetVersion);
-
             command.OnExecute(
                 async () =>
                 {
@@ -21,6 +18,8 @@ namespace DotnetAppSettings
                     return await ExecuteAsync();
                 });
 
+            command.LongVersionGetter = GetLongVersion;
+            command.ShortVersionGetter = GetShortVersion;
             Command = command;
         }
 
@@ -38,8 +37,10 @@ namespace DotnetAppSettings
         protected Task<int> SuccessAsync() => Task.FromResult(0);
 #pragma warning restore CA1822 // Mark members as static    
 
-        private static string GetVersion()
-            => typeof(AppCommand).Assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>()
+        protected static string GetLongVersion()
+            => typeof(RootCommand).Assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>()
                 .InformationalVersion;
+
+        protected static string GetShortVersion() => GetLongVersion();
     }
 }

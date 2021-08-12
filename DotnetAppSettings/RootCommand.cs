@@ -8,7 +8,7 @@ using Microsoft.Extensions.CommandLineUtils;
 
 namespace DotnetAppSettings
 {
-    internal class AppCommand : HelpCommandBase
+    internal class RootCommand : HelpCommandBase
     {
         private CommandArgument _appsettingJsonArgs;
         private CommandOption _path;
@@ -19,7 +19,8 @@ namespace DotnetAppSettings
 
         public override void Configure(CommandLineApplication command)
         {
-            command.FullName = "appsettings.exe";
+            command.Name = "appsettings";
+            command.FullName = "Convert appsettings.json to Azure AppService Configuration";
 
             _appsettingJsonArgs = command.Argument("appsettingsFiles", "appsettings.json appsettings.Production.json", true);
             _path = command.Option("-p|--path", "path to appsettings.json, appsettings.Production.json", CommandOptionType.SingleValue);
@@ -27,6 +28,8 @@ namespace DotnetAppSettings
             _environemntFormat = command.Option("-e|--environment", "output in docker compose environment", CommandOptionType.NoValue);
             _textFormat = command.Option("-t|--text", "output in text format", CommandOptionType.NoValue);
             _skipSlotSetting = command.Option("--skip-slot-setting", "skip SlotSetting=false", CommandOptionType.NoValue);
+
+            command.VersionOption("--version", GetShortVersion, GetLongVersion);
 
             base.Configure(command);
         }
