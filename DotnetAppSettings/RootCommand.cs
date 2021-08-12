@@ -50,15 +50,17 @@ namespace DotnetAppSettings
                 var pathOption = _path.Value();
                 path = Path.Combine(path, pathOption);
                 WriteVerbose($"Set path: {pathOption}");
-                if (!Directory.Exists(path))
+                var fullpath = Path.GetFullPath(path);
+                if (!Directory.Exists(fullpath))
                 {
                     Console.Error.WriteLine($"Directory not found: {path}");
                     Command.ShowHelp();
                     return 1;
                 }
+                path = fullpath;
             }
 
-            var pathAppsettingJsons = appsettingJsons.Select(appsetting => Path.Combine(path, appsetting)).ToList();
+            var pathAppsettingJsons = appsettingJsons.Select(appsetting => Path.GetFullPath(Path.Combine(path, appsetting))).ToList();
             foreach (var target in pathAppsettingJsons)
             {
                 if (!File.Exists(target))
