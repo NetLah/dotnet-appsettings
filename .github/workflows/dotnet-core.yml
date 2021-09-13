@@ -19,30 +19,42 @@ jobs:
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0
-      - name: Setup .NET Core 3.1.x
-        uses: actions/setup-dotnet@v1
-        with:
-          dotnet-version: 3.1.x
-      - name: Setup .NET Core 5.0.x
-        uses: actions/setup-dotnet@v1
-        with:
-          dotnet-version: 5.0.x
+
       - name: Setup .NET Core 6.0.x
         uses: actions/setup-dotnet@v1
         with:
           dotnet-version: "6.0.x"
           include-prerelease: true
+
+      - name: Setup .NET Core 5.0.x
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 5.0.x
+
+      - name: Setup .NET Core 3.1.x
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 3.1.x
+
+      - name: Display info
+        run: dotnet --info
+
       - name: Install dependencies
         run: dotnet restore --verbosity normal
+
       - name: Build
         run: dotnet build --configuration Release --no-restore --verbosity normal
+
       - name: Test
         run: dotnet test -c Release --no-build --verbosity normal
+
       - name: Pack
         run: dotnet pack -c Release -o ./artifacts/packages/ --no-build
+
       - if: ${{ success() && runner.os == 'Windows' && (github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/tags/')) }}
         name: Push MyGet
         run: dotnet nuget push .\artifacts\packages\*.nupkg -s https://www.myget.org/F/netlah/api/v2/package -k ${{ secrets.MYGET }}
+
       - if: ${{ success() && runner.os == 'Windows' && (github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/tags/')) }}
         name: Publish Nuget to GitHub registry
         run: dotnet nuget push .\artifacts\packages\*.nupkg -s https://nuget.pkg.github.com/NetLah/index.json -k ${{ secrets.PUSH_GITHUB_REGISTRY_TOKEN }}
