@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <PackageTags>NetLah;.NetCore;ASP.NETCore</PackageTags>
-    <Authors>ThoHo; NetLah</Authors>
+    <Authors>ThoHo;NetLah</Authors>
     <Company>NetLah</Company>
     <Copyright>NetLah</Copyright>
     <Product>NetLah .NET</Product>
