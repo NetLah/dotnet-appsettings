@@ -1,6 +1,6 @@
 # dotnet-appsettings - .NET tools
 
-A tool to convert appsettings.json files to Docker Compose environment format or json name-value format support bulk update to Application Settings on Azure AppService.
+The tool to convert appsettings.json files to Docker Compose environment format (ymal) or json name-value format support bulk update to Application Settings on Azure AppService.
 
 ## Nuget package
 
@@ -11,6 +11,10 @@ A tool to convert appsettings.json files to Docker Compose environment format or
 [![Build Status](https://img.shields.io/endpoint.svg?url=https%3A%2F%2Factions-badge.atrox.dev%2FNetLah%2Fdotnet-appsettings%2Fbadge%3Fref%3Dmain&style=flat)](https://actions-badge.atrox.dev/NetLah/dotnet-appsettings/goto?ref=main)
 
 ## Getting started
+
+### .NET 6.0 Support
+
+- Package version `0.2.*-*` support .NET Runtime and .NET SDK 6.0.
 
 ### Samples
 
@@ -183,3 +187,7 @@ Parameters:
   -?|-h|--help          help
   --version             version of this tool
 ```
+
+### Limitations
+
+- #4 Not implement quote for YAML yet
