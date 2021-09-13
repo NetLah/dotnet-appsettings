@@ -1,6 +1,6 @@
-﻿using System.Reflection;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.Extensions.CommandLineUtils;
+using NetLah.Diagnostics;
 
 namespace DotnetAppSettings
 {
@@ -38,9 +38,13 @@ namespace DotnetAppSettings
 #pragma warning restore CA1822 // Mark members as static    
 
         protected static string GetLongVersion()
-            => typeof(RootCommand).Assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>()
-                .InformationalVersion;
+            => $"v{Asm.InformationalVersion} Build:{Asm.BuildTimestampLocal} .NET:{Asm.FrameworkName}";
 
-        protected static string GetShortVersion() => GetLongVersion();
+        protected static string GetShortVersion()
+            => $"v{Asm.InformationalVersion.Split('+')[0]} Build:{Asm.BuildTimestampLocal} .NET:{Asm.FrameworkName}";
+
+        private static IAssemblyInfo _asm;
+
+        private static IAssemblyInfo Asm => _asm ??= new AssemblyInfo(typeof(CommandBase).Assembly);
     }
 }
