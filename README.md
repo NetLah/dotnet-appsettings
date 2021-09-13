@@ -190,4 +190,4 @@ Parameters:
 
 ### Limitations
 
-- #4 Not implement quote for YAML yet
+- [#4](https://github.com/NetLah/dotnet-appsettings/issues/4): Not implement quote for YAML yet
