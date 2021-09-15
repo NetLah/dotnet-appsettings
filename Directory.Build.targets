@@ -1,7 +1,7 @@
 <Project>
 
   <PropertyGroup>
-    <FrameworkVersion>5.0.9</FrameworkVersion>
+    <FrameworkVersion>5.0.10</FrameworkVersion>
     <FrameworkBaselineVersion Condition="'$(TargetFramework)' == 'netcoreapp3.1'">3.*</FrameworkBaselineVersion>
     <FrameworkBaselineVersion Condition="'$(TargetFramework)' == 'net5.0'">5.*</FrameworkBaselineVersion>
     <FrameworkBaselineVersion Condition="'$(TargetFramework)' == 'net6.0'">6.*-*</FrameworkBaselineVersion>
