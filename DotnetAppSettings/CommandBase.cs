@@ -38,13 +38,13 @@ namespace DotnetAppSettings
 #pragma warning restore CA1822 // Mark members as static    
 
         protected static string GetLongVersion()
-            => $"v{Asm.InformationalVersion} Build:{Asm.BuildTimestampLocal} .NET:{Asm.FrameworkName}";
+            => $"v{Assembly.InformationalVersion} Build:{Assembly.BuildTimestampLocal} .NET:{Assembly.FrameworkName}";
 
         protected static string GetShortVersion()
-            => $"v{Asm.InformationalVersion.Split('+')[0]} Build:{Asm.BuildTimestampLocal} .NET:{Asm.FrameworkName}";
+            => $"v{Assembly.InformationalVersion.Split('+')[0]} Build:{Assembly.BuildTimestampLocal} .NET:{Assembly.FrameworkName}";
 
-        private static IAssemblyInfo _asm;
+        private static IAssemblyInfo _assembly;
 
-        private static IAssemblyInfo Asm => _asm ??= new AssemblyInfo(typeof(CommandBase).Assembly);
+        private static IAssemblyInfo Assembly => _assembly ??= new AssemblyInfo(typeof(CommandBase).Assembly);
     }
 }
