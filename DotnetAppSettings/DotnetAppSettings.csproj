@@ -5,9 +5,9 @@
     <PackageId>dotnet-appsettings</PackageId>
     <PackAsTool>true</PackAsTool>
     <ToolCommandName>appsettings</ToolCommandName>
-    <PackageTags>azure;convert;appsettings;secrets;dotnet;tool;aspnetcore;appservice;configuration;json;jsonpath</PackageTags>
+    <PackageTags>azure;convert;appsettings;secrets;dotnet;tool;aspnetcore;appservice;app-service;configuration;settings;application-settings;json;jsonpath</PackageTags>
     <TargetFrameworks>net6.0;net5.0;netcoreapp3.1</TargetFrameworks>
-    <Description>Dotnet tool AppSettings convert appsettings.json to Azure AppService Application Settings</Description>
+    <Description>Dotnet tool AppSettings convert appsettings.json to Azure AppService Configuration Application Settings</Description>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
