@@ -20,7 +20,7 @@ namespace DotnetAppSettings.Test
                 new AzureAppSetting { Name = "Parrent__Child1__Key5", Value = "", SlotSetting = slotSetting },
             };
 
-        private IConfigurationRoot GetAppsettingsConfiguration(string resourceName = "DotnetAppSettings.Test.appsettings.json")
+        private static IConfigurationRoot GetAppsettingsConfiguration(string resourceName = "DotnetAppSettings.Test.appsettings.json")
         {
             var builder = new ConfigurationBuilder();
 
