@@ -14,7 +14,7 @@ The tool to convert appsettings.json files to Docker Compose environment format 
 
 ### .NET 6.0 Support
 
-- Package version `0.2.*-*` support .NET Runtime and .NET SDK 6.0.
+- Package version `0.2.0` support .NET Runtime and .NET SDK 6.0.
 
 ### Samples
 
