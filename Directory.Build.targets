@@ -15,7 +15,7 @@
     <PackageReference Update="Microsoft.SourceLink.GitHub" Version="1.*" PrivateAssets="All" />
 
     <!--the netlah platform-->
-    <PackageReference Update="NetLah.Abstractions" Version="[0.*,1.0)" PrivateAssets="build" />
+    <PackageReference Update="NetLah.Abstractions" Version="[0.*,1.0)" />
     <PackageReference Update="NetLah.Extensions.Configuration" Version="[0.*,1.0)" />
     <PackageReference Update="NetLah.Extensions.EventAggregator" Version="[0.*,1.0)" />
     <PackageReference Update="NetLah.Extensions.Logging.Serilog" Version="[0.*,1.0)" />
