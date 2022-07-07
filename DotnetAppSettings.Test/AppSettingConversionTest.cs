@@ -156,6 +156,20 @@ namespace DotnetAppSettings.Test
 - Logging__LogLevel__Microsoft.Hosting.Lifetime=Information
 ", string.Join(Environment.NewLine, result));
         }
+        
+        [Fact]
+        public async Task Convert_DockerCompose_MapEnvironemnt()
+        {
+            var result = await AppSettingsExecuteAsync("Files/appsettings.json Files/appsettings.Development.json --map-environment");
+            Assert.Equal(@"AllowedHosts: '*'
+Array__0__Name: Value1
+Array__1__Name: Value 2
+ConnectionStrings__DefaultConnection: Data Source=localhost;Initial Catalog=database-73628d830a33;Integrated Security=True;MultipleActiveResultSets=true;
+Logging__LogLevel__Default: Debug
+Logging__LogLevel__Microsoft: Warning
+Logging__LogLevel__Microsoft.Hosting.Lifetime: Information
+", string.Join(Environment.NewLine, result));
+        }
 
         [Fact]
         public async Task Convert_Text()

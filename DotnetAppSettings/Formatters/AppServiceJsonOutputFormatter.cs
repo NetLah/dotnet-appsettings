@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace DotnetAppSettings.Formatters
 {
-    internal class JsonOutputFormatter : IOutputFormatter
+    internal class AppServiceJsonOutputFormatter : IOutputFormatter
     {
         public Task WriteAsync(Stream stream, IEnumerable<AzureAppSetting> settings)
             => JsonSerializer.SerializeAsync(stream, settings, new JsonSerializerOptions { WriteIndented = true });

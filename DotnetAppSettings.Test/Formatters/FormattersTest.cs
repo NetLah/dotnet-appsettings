@@ -11,7 +11,7 @@ namespace DotnetAppSettings.Test.Formatters
         private readonly List<AzureAppSetting> settings = new()
         {
             new AzureAppSetting { Name = "KEY", Value = "VALUE1", SlotSetting = false },
-            new AzureAppSetting { Name = "key__subkey", Value = "Value2", SlotSetting = true },
+            new AzureAppSetting { Name = "key__subkey", Value = "Value 2", SlotSetting = true },
             new AzureAppSetting { Name = "array3__0", Value = "Value3", SlotSetting = null },
         };
 
@@ -23,9 +23,9 @@ namespace DotnetAppSettings.Test.Formatters
         }
 
         [Fact]
-        public async Task JsonOutputFormatterTest()
+        public async Task AppServiceJsonOutputFormatterTest()
         {
-            var service = new JsonOutputFormatter();
+            var service = new AppServiceJsonOutputFormatter();
             using var stream = new MemoryStream();
 
             await service.WriteAsync(stream, settings);
@@ -40,7 +40,7 @@ namespace DotnetAppSettings.Test.Formatters
   },
   {
     ""name"": ""key__subkey"",
-    ""value"": ""Value2"",
+    ""value"": ""Value 2"",
     ""slotSetting"": true
   },
   {
@@ -64,7 +64,7 @@ namespace DotnetAppSettings.Test.Formatters
 VALUE1
 
 key__subkey
-Value2
+Value 2
 
 array3__0
 Value3
@@ -72,9 +72,9 @@ Value3
         }
 
         [Fact]
-        public async Task EnvironmentOutputFormatterTest()
+        public async Task ArrayEnvironmentOutputFormatterTest()
         {
-            var service = new EnvironmentOutputFormatter();
+            var service = new ArrayEnvironmentOutputFormatter();
             using var stream = new MemoryStream();
 
             await service.WriteAsync(stream, settings);
@@ -82,8 +82,24 @@ Value3
             var context = ReadContent(stream);
 
             Assert.Equal(@"- KEY=VALUE1
-- key__subkey=Value2
+- key__subkey=Value 2
 - array3__0=Value3
+", context);
+        }
+
+        [Fact]
+        public async Task MapEnvironmentOutputFormatterTest()
+        {
+            var service = new MapEnvironmentOutputFormatter();
+            using var stream = new MemoryStream();
+
+            await service.WriteAsync(stream, settings);
+
+            var context = ReadContent(stream);
+
+            Assert.Equal(@"KEY: VALUE1
+key__subkey: Value 2
+array3__0: Value3
 ", context);
         }
     }
