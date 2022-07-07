@@ -19,7 +19,7 @@ namespace DotnetAppSettings.Test
   },
   {
     ""name"": ""Array__1__Name"",
-    ""value"": ""Value2"",
+    ""value"": ""Value 2"",
     ""slotSetting"": false
   },
   {
@@ -64,7 +64,7 @@ namespace DotnetAppSettings.Test
   },
   {
     ""name"": ""Array__1__Name"",
-    ""value"": ""Value2"",
+    ""value"": ""Value 2"",
     ""slotSetting"": false
   },
   {
@@ -110,7 +110,7 @@ namespace DotnetAppSettings.Test
   },
   {
     ""name"": ""Array__1__Name"",
-    ""value"": ""Value2"",
+    ""value"": ""Value 2"",
     ""slotSetting"": false
   },
   {
@@ -149,7 +149,7 @@ namespace DotnetAppSettings.Test
             var result = await AppSettingsExecuteAsync("Files/appsettings.json Files/appsettings.Development.json --environment");
             Assert.Equal(@"- AllowedHosts=*
 - Array__0__Name=Value1
-- Array__1__Name=Value2
+- Array__1__Name=Value 2
 - ConnectionStrings__DefaultConnection=Data Source=localhost;Initial Catalog=database-73628d830a33;Integrated Security=True;MultipleActiveResultSets=true;
 - Logging__LogLevel__Default=Debug
 - Logging__LogLevel__Microsoft=Warning
@@ -168,7 +168,7 @@ Array__0__Name
 Value1
 
 Array__1__Name
-Value2
+Value 2
 
 ConnectionStrings__DefaultConnection
 Data Source=localhost;Initial Catalog=database-73628d830a33;Integrated Security=True;MultipleActiveResultSets=true;
