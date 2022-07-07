@@ -102,5 +102,22 @@ key__subkey: Value 2
 array3__0: Value3
 ", context);
         }
+
+        [Fact]
+        public async Task JsonEnvironmentOutputFormatterTest()
+        {
+            var service = new JsonEnvironmentOutputFormatter();
+            using var stream = new MemoryStream();
+
+            await service.WriteAsync(stream, settings);
+
+            var context = ReadContent(stream);
+
+            Assert.Equal(@"{
+  ""KEY"": ""VALUE1"",
+  ""key__subkey"": ""Value 2"",
+  ""array3__0"": ""Value3""
+}", context);
+        }
     }
 }

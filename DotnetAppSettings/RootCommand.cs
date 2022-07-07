@@ -1,10 +1,10 @@
-﻿using System;
+﻿using Microsoft.Extensions.CommandLineUtils;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Microsoft.Extensions.CommandLineUtils;
 
 namespace DotnetAppSettings
 {
@@ -15,6 +15,7 @@ namespace DotnetAppSettings
         private CommandOption _outputFile;
         private CommandOption _arrayEnvironmentFormat;
         private CommandOption _mapEnvironmentFormat;
+        private CommandOption _jsonEnvironmentFormat;
         private CommandOption _textFormat;
         private CommandOption _skipSlotSetting;
 
@@ -28,6 +29,7 @@ namespace DotnetAppSettings
             _outputFile = command.Option("-o|--output-file", "path to output-file.json", CommandOptionType.SingleValue);
             _arrayEnvironmentFormat = command.Option("-e|--environment", "output in docker compose environment Array syntax", CommandOptionType.NoValue);
             _mapEnvironmentFormat = command.Option("-m|--map-environment", "output in docker compose environment Map syntax", CommandOptionType.NoValue);
+            _jsonEnvironmentFormat = command.Option("-j|--json-environment", "output in environment json", CommandOptionType.NoValue);
             _textFormat = command.Option("-t|--text", "output in text format", CommandOptionType.NoValue);
             _skipSlotSetting = command.Option("--skip-slot-setting", "skip SlotSetting=false", CommandOptionType.NoValue);
 
@@ -88,7 +90,7 @@ namespace DotnetAppSettings
 
             try
             {
-                var formatter = FormatterFactory.Create(_mapEnvironmentFormat.HasValue(), _arrayEnvironmentFormat.HasValue(), _textFormat.HasValue());
+                var formatter = FormatterFactory.Create(_mapEnvironmentFormat.HasValue(), _arrayEnvironmentFormat.HasValue(), _jsonEnvironmentFormat.HasValue(), _textFormat.HasValue());
                 var converter = new ConfigurationConverter(pathAppsettingJsons);
                 await formatter.WriteAsync(output, converter.ConvertSettings(_skipSlotSetting.HasValue() ? new bool?() : false));
 
