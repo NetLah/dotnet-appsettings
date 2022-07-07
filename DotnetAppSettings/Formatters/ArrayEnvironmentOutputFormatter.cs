@@ -1,16 +1,10 @@
-﻿using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
+﻿namespace DotnetAppSettings.Formatters;
 
-namespace DotnetAppSettings.Formatters
+internal class ArrayEnvironmentOutputFormatter : BaseEnvironmentOutputFormatter, IOutputFormatter
 {
-    internal class ArrayEnvironmentOutputFormatter : BaseEnvironmentOutputFormatter, IOutputFormatter
+    public Task WriteAsync(Stream stream, IEnumerable<AzureAppSetting> settings)
     {
-        public Task WriteAsync(Stream stream, IEnumerable<AzureAppSetting> settings)
-        {
-            var data = settings.Select(s => $"{s.Name}={s.Value}");
-            return SerializeAsync(stream, data);
-        }
+        var data = settings.Select(s => $"{s.Name}={s.Value}");
+        return SerializeAsync(stream, data);
     }
 }

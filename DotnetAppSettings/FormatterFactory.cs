@@ -1,23 +1,22 @@
 ﻿using DotnetAppSettings.Formatters;
 
-namespace DotnetAppSettings
+namespace DotnetAppSettings;
+
+internal static class FormatterFactory
 {
-    internal static class FormatterFactory
+    internal static IOutputFormatter Create(bool isMap, bool isEnv, bool isJson, bool isText)
     {
-        internal static IOutputFormatter Create(bool isMap, bool isEnv, bool isJson, bool isText)
-        {
-            if (isMap)
-                return new MapEnvironmentOutputFormatter();
+        if (isMap)
+            return new MapEnvironmentOutputFormatter();
 
-            if (isEnv)
-                return new ArrayEnvironmentOutputFormatter();
-            
-            if (isJson)
-                return new JsonEnvironmentOutputFormatter();
+        if (isEnv)
+            return new ArrayEnvironmentOutputFormatter();
 
-            return isText ?
-                 (IOutputFormatter)new TextOutputFormatter() :
-                new AppServiceJsonOutputFormatter();
-        }
+        if (isJson)
+            return new JsonEnvironmentOutputFormatter();
+
+        return isText ?
+             (IOutputFormatter)new TextOutputFormatter() :
+            new AppServiceJsonOutputFormatter();
     }
 }

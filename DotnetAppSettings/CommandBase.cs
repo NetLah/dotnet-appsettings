@@ -1,50 +1,48 @@
-﻿using System.Threading.Tasks;
-using Microsoft.Extensions.CommandLineUtils;
+﻿using Microsoft.Extensions.CommandLineUtils;
 using NetLah.Diagnostics;
 
-namespace DotnetAppSettings
+namespace DotnetAppSettings;
+
+internal class CommandBase
 {
-    internal class CommandBase
+    public virtual void Configure(CommandLineApplication command)
     {
-        public virtual void Configure(CommandLineApplication command)
-        {
-            VerboseOption = command.Option("-v|--verbose", "Show verbose output.", CommandOptionType.NoValue);
+        VerboseOption = command.Option("-v|--verbose", "Show verbose output.", CommandOptionType.NoValue);
 
-            command.OnExecute(
-                async () =>
-                {
-                    await ValidateAsync();
+        command.OnExecute(
+            async () =>
+            {
+                await ValidateAsync();
 
-                    return await ExecuteAsync();
-                });
+                return await ExecuteAsync();
+            });
 
-            command.LongVersionGetter = GetLongVersion;
-            command.ShortVersionGetter = GetShortVersion;
-            Command = command;
-        }
+        command.LongVersionGetter = GetLongVersion;
+        command.ShortVersionGetter = GetShortVersion;
+        Command = command;
+    }
 
-        protected CommandLineApplication Command { get; private set; }
+    protected CommandLineApplication Command { get; private set; }
 
-        protected CommandOption VerboseOption { get; private set; }
+    protected CommandOption VerboseOption { get; private set; }
 
-        protected bool IsVerbose => VerboseOption.HasValue();
+    protected bool IsVerbose => VerboseOption.HasValue();
 
-        protected virtual Task ValidateAsync() => Task.CompletedTask;
+    protected virtual Task ValidateAsync() => Task.CompletedTask;
 
-        protected virtual Task<int> ExecuteAsync() => SuccessAsync();
+    protected virtual Task<int> ExecuteAsync() => SuccessAsync();
 
 #pragma warning disable CA1822 // Mark members as static
-        protected Task<int> SuccessAsync() => Task.FromResult(0);
+    protected Task<int> SuccessAsync() => Task.FromResult(0);
 #pragma warning restore CA1822 // Mark members as static    
 
-        protected static string GetLongVersion()
-            => $"v{Assembly.InformationalVersion} Build:{Assembly.BuildTimestampLocal} .NET:{Assembly.FrameworkName}";
+    protected static string GetLongVersion()
+        => $"v{Assembly.InformationalVersion} Build:{Assembly.BuildTimestampLocal} .NET:{Assembly.FrameworkName}";
 
-        protected static string GetShortVersion()
-            => $"v{Assembly.InformationalVersion.Split('+')[0]} Build:{Assembly.BuildTimestampLocal} .NET:{Assembly.FrameworkName}";
+    protected static string GetShortVersion()
+        => $"v{Assembly.InformationalVersion.Split('+')[0]} Build:{Assembly.BuildTimestampLocal} .NET:{Assembly.FrameworkName}";
 
-        private static IAssemblyInfo _assembly;
+    private static IAssemblyInfo _assembly;
 
-        private static IAssemblyInfo Assembly => _assembly ??= new AssemblyInfo(typeof(CommandBase).Assembly);
-    }
+    private static IAssemblyInfo Assembly => _assembly ??= new AssemblyInfo(typeof(CommandBase).Assembly);
 }

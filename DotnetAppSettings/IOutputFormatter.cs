@@ -1,11 +1,6 @@
-﻿using System.Collections.Generic;
-using System.IO;
-using System.Threading.Tasks;
+﻿namespace DotnetAppSettings;
 
-namespace DotnetAppSettings
+internal interface IOutputFormatter
 {
-    internal interface IOutputFormatter
-    {
-        Task WriteAsync(Stream stream, IEnumerable<AzureAppSetting> settings);
-    }
+    Task WriteAsync(Stream stream, IEnumerable<AzureAppSetting> settings);
 }

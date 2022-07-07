@@ -1,25 +1,16 @@
-﻿using System;
+﻿using DotnetAppSettings;
 using Microsoft.Extensions.CommandLineUtils;
 
-namespace DotnetAppSettings
+try
 {
-    internal static class Program
-    {
-        public static int Main(string[] args)
-        {
-            try
-            {
-                var app = new CommandLineApplication(throwOnUnexpectedArg: true);
-                new RootCommand().Configure(app);
-                var result = app.Execute(args);
-                return result;
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.ToString());
-            }
-
-            return 1;
-        }
-    }
+    var app = new CommandLineApplication(throwOnUnexpectedArg: true);
+    new RootCommand().Configure(app);
+    var result = app.Execute(args);
+    return result;
 }
+catch (Exception ex)
+{
+    Console.WriteLine(ex.ToString());
+}
+
+return 1;

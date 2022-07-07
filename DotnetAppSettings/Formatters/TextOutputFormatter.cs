@@ -1,29 +1,23 @@
-﻿using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
+﻿namespace DotnetAppSettings.Formatters;
 
-namespace DotnetAppSettings.Formatters
+internal class TextOutputFormatter : IOutputFormatter
 {
-    internal class TextOutputFormatter : IOutputFormatter
+    public async Task WriteAsync(Stream stream, IEnumerable<AzureAppSetting> settings)
     {
-        public async Task WriteAsync(Stream stream, IEnumerable<AzureAppSetting> settings)
+        var content = settings
+            .SelectMany(s => new[] {
+                string.Empty,
+                s.Name,
+                s.Value,
+                // $"SlotSetting={s.SlotSetting }"  Text format not include SlotSetting
+            })
+            .Skip(1);
+
+        using var writer = new StreamWriter(stream, leaveOpen: true);
+
+        foreach (var line in content)
         {
-            var content = settings
-                .SelectMany(s => new[] {
-                    string.Empty,
-                    s.Name,
-                    s.Value,
-                    // $"SlotSetting={s.SlotSetting }"  Text format not include SlotSetting
-                })
-                .Skip(1);
-
-            using var writer = new StreamWriter(stream, leaveOpen: true);
-
-            foreach (var line in content)
-            {
-                await writer.WriteLineAsync(line);
-            }
+            await writer.WriteLineAsync(line);
         }
     }
 }

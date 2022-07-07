@@ -1,6 +1,4 @@
-﻿using System.IO;
-using System.Threading.Tasks;
-using YamlDotNet.Serialization;
+﻿using YamlDotNet.Serialization;
 
 namespace DotnetAppSettings.Formatters;
 
