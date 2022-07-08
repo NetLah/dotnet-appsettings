@@ -31,30 +31,67 @@ The tool to convert appsettings.json files to Docker Compose environment format 
   },
   "Array": [
     {
-      "Name": "Value1"
+      "Name": "!Value1"
     },
     {
-      "Name": "Value2"
+      "Name": "@Value2"
     }
   ],
+  "!Key3": "Value &3 + 4",
   "AllowedHosts": "*"
 }
 ```
 
-- Environment format for Docker compose file `docker-compose.yml`
+- Environment array syntax format for Docker compose file `docker-compose.yml`
 
 ```yml
 services:
   webapi:
     environment:
+      - '!Key3=Value &3 + 4'
       - AllowedHosts=*
-      - Array__0__Name=Value1
-      - Array__1__Name=Value2
+      - Array__0__Name=!Value1
+      - Array__1__Name=@Value2
       - Logging__LogLevel__Default=Information
       - Logging__LogLevel__Microsoft=Warning
       - Logging__LogLevel__Microsoft.Hosting.Lifetime=Information
 ```
 
+- Environment map syntax format for Docker compose file `docker-compose.yml`
+
+```yml
+services:
+  webapi:
+    environment:
+      '!Key3': Value &3 + 4
+      AllowedHosts: '*'
+      Array__0__Name: '!Value1'
+      Array__1__Name: '@Value2'
+      Logging__LogLevel__Default: Information
+      Logging__LogLevel__Microsoft: Warning
+      Logging__LogLevel__Microsoft.Hosting.Lifetime: Information
+```
+
+- Environment json format for `launchSettings.json`
+
+```json
+{
+  "profiles": {
+    "ConsoleApp1": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "!Key3": "Value \u00263 \u002B 4",
+        "AllowedHosts": "*",
+        "Array__0__Name": "!Value1",
+        "Array__1__Name": "@Value2",
+        "Logging__LogLevel__Default": "Information",
+        "Logging__LogLevel__Microsoft": "Warning",
+        "Logging__LogLevel__Microsoft.Hosting.Lifetime": "Information"
+      }
+    }
+  }
+}
+```
 - Azure AppService / Configuration / Application Settings / Advanced edit (https://docs.microsoft.com/en-us/azure/app-service/configure-common#edit-in-bulk)
 
 ![Edit in bulk](https://raw.githubusercontent.com/NetLah/dotnet-appsettings/main/docs/bulk-edit-app-settings.png)
@@ -62,18 +99,23 @@ services:
 ```json
 [
   {
+    "name": "!Key3",
+    "value": "Value \u00263 \u002B 4",
+    "slotSetting": false
+  },
+  {
     "name": "AllowedHosts",
     "value": "*",
     "slotSetting": false
   },
   {
     "name": "Array__0__Name",
-    "value": "Value1",
+    "value": "!Value1",
     "slotSetting": false
   },
   {
     "name": "Array__1__Name",
-    "value": "Value2",
+    "value": "@Value2",
     "slotSetting": false
   },
   {
@@ -97,14 +139,17 @@ services:
 - Text format for manually update Azure AppService / Configuration / Application Settings
 
 ```txt
+!Key3
+Value &3 + 4
+
 AllowedHosts
 *
 
 Array__0__Name
-Value1
+!Value1
 
 Array__1__Name
-Value2
+@Value2
 
 Logging__LogLevel__Default
 Information
@@ -118,7 +163,7 @@ Information
 
 ### Installation dotnet tool globally
 
-Download and install the [.NET Core 3.1 SDK](https://dotnet.microsoft.com/download/dotnet/3.1) or [.NET Core 5 SDK](https://dotnet.microsoft.com/download/dotnet/5.0) or newer. Once installed the .NET Core SDK, run the following command:
+Download and install the [.NET 6.0 SDK](https://dotnet.microsoft.com/en-us/download/dotnet/6.0). The tool still support .NETCore 3.1 SDK and .NET 5.0 SDK for a moment. Once installed the .NET SDK, run the following command to install the tool:
 
 ```
 dotnet tool install --global dotnet-appsettings
@@ -178,16 +223,20 @@ Command line local:
 Command line tool path:
   "C:\Development\Project1\tools\appsettings.exe" [appsettings.json [appsettings.Production.json]]
 
-Parameters:
-  -p|--path             path to appsettings.json, appsettings.Production.json
-  -o|--output-file      path to output-file.json
-  -e|--environment      output in docker compose environment
-  -t|--text             output in text format
-  --skip-slot-setting   skip SlotSetting=false
-  -?|-h|--help          help
-  --version             version of this tool
+Usage: appsettings [arguments] [options]
+
+Arguments:
+  appsettingsFiles  appsettings.json appsettings.Production.json
+
+Options:
+  -p|--path              path to appsettings.json, appsettings.Production.json
+  -o|--output-file       path to output-file.json
+  -e|--environment       output in docker compose environment Array syntax
+  -m|--map-environment   output in docker compose environment Map syntax
+  -j|--json-environment  output in environment json
+  -t|--text              output in text format
+  --skip-slot-setting    skip SlotSetting=false
+  --version              Show version information
+  -?|-h|--help           Show help information
+  -v|--verbose           Show verbose output.
 ```
-
-### Limitations
-
-- [#4](https://github.com/NetLah/dotnet-appsettings/issues/4): Not implement quote for YAML yet
