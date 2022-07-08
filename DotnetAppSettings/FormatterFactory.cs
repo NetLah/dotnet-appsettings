@@ -16,7 +16,7 @@ internal static class FormatterFactory
             return new JsonEnvironmentOutputFormatter();
 
         return isText ?
-             (IOutputFormatter)new TextOutputFormatter() :
+            new TextOutputFormatter() :
             new AppServiceJsonOutputFormatter();
     }
 }

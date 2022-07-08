@@ -3,8 +3,5 @@
 internal class MapEnvironmentOutputFormatter : BaseEnvironmentOutputFormatter, IOutputFormatter
 {
     public Task WriteAsync(Stream stream, IEnumerable<AzureAppSetting> settings)
-    {
-        var data = settings.ToDictionary(s => s.Name, s => s.Value);
-        return SerializeAsync(stream, data);
-    }
+        => SerializeAsync(stream, settings.ToDictionary(s => s.Name, s => s.Value));
 }

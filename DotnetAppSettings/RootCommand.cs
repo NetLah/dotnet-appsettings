@@ -5,14 +5,14 @@ namespace DotnetAppSettings;
 
 internal class RootCommand : HelpCommandBase
 {
-    private CommandArgument _appsettingJsonArgs;
-    private CommandOption _path;
-    private CommandOption _outputFile;
-    private CommandOption _arrayEnvironmentFormat;
-    private CommandOption _mapEnvironmentFormat;
-    private CommandOption _jsonEnvironmentFormat;
-    private CommandOption _textFormat;
-    private CommandOption _skipSlotSetting;
+    private CommandArgument? _appsettingJsonArgs;
+    private CommandOption? _path;
+    private CommandOption? _outputFile;
+    private CommandOption? _arrayEnvironmentFormat;
+    private CommandOption? _mapEnvironmentFormat;
+    private CommandOption? _jsonEnvironmentFormat;
+    private CommandOption? _textFormat;
+    private CommandOption? _skipSlotSetting;
 
     public override void Configure(CommandLineApplication command)
     {
@@ -35,6 +35,17 @@ internal class RootCommand : HelpCommandBase
 
     protected override async Task<int> ExecuteAsync()
     {
+        const string nullError = "Call Configure() method first";
+        if (_appsettingJsonArgs == null) throw new NullReferenceException(nullError);
+        if (_path == null) throw new NullReferenceException(nullError);
+        if (_outputFile == null) throw new NullReferenceException(nullError);
+        if (_arrayEnvironmentFormat == null) throw new NullReferenceException(nullError);
+        if (_mapEnvironmentFormat == null) throw new NullReferenceException(nullError);
+        if (_jsonEnvironmentFormat == null) throw new NullReferenceException(nullError);
+        if (_textFormat == null) throw new NullReferenceException(nullError);
+        if (_skipSlotSetting == null) throw new NullReferenceException(nullError);
+        if (Command == null) throw new NullReferenceException(nullError);
+
         var appsettingJsons = _appsettingJsonArgs.Values;
         appsettingJsons ??= new List<string>();
         if (appsettingJsons.Count == 0)

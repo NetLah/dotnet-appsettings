@@ -7,9 +7,9 @@ public class FormattersTest
 {
     private readonly List<AzureAppSetting> settings = new()
     {
-        new AzureAppSetting { Name = "KEY", Value = "VALUE1", SlotSetting = false },
-        new AzureAppSetting { Name = "key__subkey", Value = "Value 2", SlotSetting = true },
-        new AzureAppSetting { Name = "array3__0", Value = "Value3", SlotSetting = null },
+        new AzureAppSetting("KEY", "VALUE1", false),
+        new AzureAppSetting("key__subkey", "Value 2", true),
+        new AzureAppSetting("array3__0", "Value3", null),
     };
 
     private static string ReadContent(MemoryStream stream)

@@ -45,7 +45,7 @@ internal static class ProcessExtensions
 
         _ = Task.Run(() =>
         {
-            Exception captureException = null;
+            Exception? captureException = null;
             try
             {
                 process.WaitForExit();

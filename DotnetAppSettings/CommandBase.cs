@@ -7,6 +7,7 @@ internal class CommandBase
 {
     public virtual void Configure(CommandLineApplication command)
     {
+        Command = command ?? throw new ArgumentNullException(nameof(command));
         VerboseOption = command.Option("-v|--verbose", "Show verbose output.", CommandOptionType.NoValue);
 
         command.OnExecute(
@@ -19,14 +20,13 @@ internal class CommandBase
 
         command.LongVersionGetter = GetLongVersion;
         command.ShortVersionGetter = GetShortVersion;
-        Command = command;
     }
 
-    protected CommandLineApplication Command { get; private set; }
+    protected CommandLineApplication? Command { get; private set; }
 
-    protected CommandOption VerboseOption { get; private set; }
+    protected CommandOption? VerboseOption { get; private set; }
 
-    protected bool IsVerbose => VerboseOption.HasValue();
+    protected bool IsVerbose => VerboseOption?.HasValue() == true;
 
     protected virtual Task ValidateAsync() => Task.CompletedTask;
 
@@ -42,7 +42,7 @@ internal class CommandBase
     protected static string GetShortVersion()
         => $"v{Assembly.InformationalVersion.Split('+')[0]} Build:{Assembly.BuildTimestampLocal} .NET:{Assembly.FrameworkName}";
 
-    private static IAssemblyInfo _assembly;
+    private static IAssemblyInfo? _assembly;
 
     private static IAssemblyInfo Assembly => _assembly ??= new AssemblyInfo(typeof(CommandBase).Assembly);
 }

@@ -9,14 +9,14 @@ public class ConvertTest
     private static List<AzureAppSetting> GetSettings(bool? slotSetting)
         => new()
         {
-            new AzureAppSetting { Name = "Key1", Value = "Value1", SlotSetting = slotSetting },
-            new AzureAppSetting { Name = "Key2__Sub2", Value = "2021", SlotSetting = slotSetting },
-            new AzureAppSetting { Name = "Parrent__Array6__0__Name", Value = "Element1", SlotSetting = slotSetting },
-            new AzureAppSetting { Name = "Parrent__Array6__1__Additional", Value = "Add2", SlotSetting = slotSetting },
-            new AzureAppSetting { Name = "Parrent__Array6__1__Name", Value = "Element2", SlotSetting = slotSetting },
-            new AzureAppSetting { Name = "Parrent__Child1__Key3", Value = "Value3", SlotSetting = slotSetting },
-            new AzureAppSetting { Name = "Parrent__Child1__Key4", Value = "", SlotSetting = slotSetting },
-            new AzureAppSetting { Name = "Parrent__Child1__Key5", Value = "", SlotSetting = slotSetting },
+            new AzureAppSetting("Key1", "Value1", slotSetting),
+            new AzureAppSetting("Key2__Sub2", "2021", slotSetting),
+            new AzureAppSetting("Parrent__Array6__0__Name", "Element1", slotSetting),
+            new AzureAppSetting("Parrent__Array6__1__Additional", "Add2", slotSetting),
+            new AzureAppSetting("Parrent__Array6__1__Name", "Element2", slotSetting),
+            new AzureAppSetting("Parrent__Child1__Key3", "Value3", slotSetting),
+            new AzureAppSetting("Parrent__Child1__Key4", "", slotSetting),
+            new AzureAppSetting("Parrent__Child1__Key5", "", slotSetting),
         };
 
     private static IConfigurationRoot GetAppsettingsConfiguration(string resourceName = "DotnetAppSettings.Test.appsettings.json")
@@ -55,10 +55,12 @@ public class ConvertTest
 
     private class AzureAppSettingComparer : IEqualityComparer<AzureAppSetting>
     {
-        public bool Equals([AllowNull] AzureAppSetting x, [AllowNull] AzureAppSetting y)
-            => x.Name == y.Name &&
+        public bool Equals([AllowNull] AzureAppSetting? x, [AllowNull] AzureAppSetting? y)
+            => x == null && y == null ||
+                (x != null && y != null &&
+                x.Name == y.Name &&
                 x.SlotSetting == y.SlotSetting &&
-                x.Value == y.Value;
+                x.Value == y.Value);
 
         public int GetHashCode([DisallowNull] AzureAppSetting obj)
             => (obj.Name?.GetHashCode() ?? 0) ^

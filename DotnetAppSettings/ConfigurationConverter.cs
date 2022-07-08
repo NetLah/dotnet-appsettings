@@ -23,11 +23,11 @@ internal class ConfigurationConverter
     public List<AzureAppSetting> ConvertSettings(bool? slotSetting)
     {
         var result = _configuration
-                .AsEnumerable(false)
-                .Where(kv => kv.Value != null)
-                .OrderBy(kv => kv.Key)
-                .Select(kv => new AzureAppSetting { Name = kv.Key.Replace(":", "__"), Value = kv.Value, SlotSetting = slotSetting })
-                .ToList();
+            .AsEnumerable(false)
+            .Where(kv => kv.Value != null)
+            .OrderBy(kv => kv.Key)
+            .Select(kv => new AzureAppSetting(kv.Key.Replace(":", "__"), kv.Value, slotSetting))
+            .ToList();
 
         return result;
     }
