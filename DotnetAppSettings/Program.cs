@@ -1,5 +1,5 @@
 ﻿using DotnetAppSettings;
-using Microsoft.Extensions.CommandLineUtils;
+using NetLah.Extensions.CommandLineUtils;
 
 try
 {

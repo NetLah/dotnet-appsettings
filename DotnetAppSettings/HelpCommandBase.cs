@@ -1,4 +1,4 @@
-﻿using Microsoft.Extensions.CommandLineUtils;
+﻿using NetLah.Extensions.CommandLineUtils;
 
 namespace DotnetAppSettings;
 

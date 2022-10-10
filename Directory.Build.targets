@@ -20,12 +20,14 @@
     <!--the helpers -->
     <PackageReference Update="NetLah.Abstractions" Version="[0.*-*,1)" />
     <PackageReference Include="NetLah.AssemblyInfo.BuildTime.Target" Version="[0.*-*,1)" PrivateAssets="All" />
+    <PackageReference Update="NetLah.Extensions.CommandLineUtils" Version="0.*-*" />
     <PackageReference Update="NetLah.Extensions.Configuration" Version="[0.*-*,1)" />
     <PackageReference Update="NetLah.Extensions.EventAggregator" Version="[0.*-*,1)" />
     <PackageReference Update="NetLah.Extensions.HttpOverrides" Version="[0.*-*,1)" />
     <PackageReference Update="NetLah.Extensions.Logging.Reference" Version="[0.*-*,1)" />
     <PackageReference Update="NetLah.Extensions.Logging.Serilog" Version="[0.*-*,1)" />
     <PackageReference Update="NetLah.Extensions.Logging.Serilog.AspNetCore" Version="[0.*-*,1)" />
+    <PackageReference Update="NetLah.Extensions.SpaServices.Hosting" Version="[0.*-*,1)" />
     <PackageReference Update="Testing.Dynamic.Json" Version="1.*-*" />
 
     <!--tests-->
@@ -88,7 +90,6 @@
     <PackageReference Update="BenchmarkDotNet" Version="0.13.*" />
     <PackageReference Update="Microsoft.CSharp" Version="4.7.0" />
     <PackageReference Update="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="$(FrameworkVersion)" />
-    <PackageReference Update="Microsoft.Extensions.CommandLineUtils" Version="1.*" />
     <PackageReference Update="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.*" />
     <PackageReference Update="Microsoft.VisualStudio.Threading" Version="17.*" />
     <PackageReference Update="System.Memory" Version="4.5.4" />
@@ -128,8 +129,8 @@
     <PackageReference Update="System.Drawing.Common" Version="$(FrameworkVersion)" />
     <PackageReference Update="System.Net.Http.Json" Version="$(FrameworkVersion)" />
     <PackageReference Update="System.Text.Encoding.CodePages" Version="$(FrameworkVersion)" />
-    <PackageReference Update="System.Text.Json" Condition="'$(TargetFramework)' == 'net5.0'" Version="5.*" />
-    <PackageReference Update="System.Text.Json" Condition="'$(TargetFramework)' != 'net5.0'" Version="6.*" />
+    <PackageReference Update="System.Text.Json" Condition="'$(TargetFramework)' != 'net6.0' And '$(TargetFramework)' != 'net7.0'" Version="5.*" />
+    <PackageReference Update="System.Text.Json" Condition="'$(TargetFramework)' == 'net6.0' Or '$(TargetFramework)' == 'net7.0'" Version="$(FrameworkBaselineVersion)" />
 
     <!--microsoft asp.net core-->
     <PackageReference Update="Microsoft.AspNetCore.Authentication.Facebook" Version="$(FrameworkVersion)" />
@@ -178,6 +179,7 @@
     <!--azure deprecated-->
     <!--<PackageReference Update="Microsoft.Azure.ServiceBus" Version="5.*" />-->
     <!--<PackageReference Update="Microsoft.Azure.Amqp" Version="2.*" />-->
+    <!--<PackageReference Update="Microsoft.Extensions.CommandLineUtils" Version="1.*" />-->
 
     <!--microsoft identity-->
     <PackageReference Update="Microsoft.Identity.Client" Version="4.*" />

@@ -1,5 +1,5 @@
-﻿using Microsoft.Extensions.CommandLineUtils;
-using NetLah.Diagnostics;
+﻿using NetLah.Diagnostics;
+using NetLah.Extensions.CommandLineUtils;
 
 namespace DotnetAppSettings;
 
