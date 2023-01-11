@@ -163,7 +163,7 @@ Information
 
 ### Installation dotnet tool globally
 
-Download and install the [.NET 6.0 SDK](https://dotnet.microsoft.com/en-us/download/dotnet/6.0). The tool still support .NETCore 3.1 SDK and .NET 5.0 SDK for a moment. Once installed the .NET SDK, run the following command to install the tool:
+Download and install the [.NET 7.0 SDK](https://dotnet.microsoft.com/en-us/download/dotnet/7.0) or [.NET 6.0 SDK](https://dotnet.microsoft.com/en-us/download/dotnet/6.0). The tool still support .NETCore 3.1 SDK and .NET 5.0 SDK for a moment. Once installed the .NET SDK, run the following command to install the tool:
 
 ```
 dotnet tool install --global dotnet-appsettings
