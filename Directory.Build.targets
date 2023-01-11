@@ -1,18 +1,19 @@
 <Project>
 
   <PropertyGroup>
-    <CurrentFrameworkVersion>6.0.9</CurrentFrameworkVersion>
-    <FrameworkVersion Condition="'$(TargetFramework)' != 'net5.0' And '$(TargetFramework)' != 'net6.0'">3.1.*</FrameworkVersion>
+    <CurrentFrameworkVersion>6.0.13</CurrentFrameworkVersion>
+    <FrameworkVersion Condition="'$(TargetFramework)' != 'net5.0' And '$(TargetFramework)' != 'net6.0' And '$(TargetFramework)' != 'net7.0' And '$(TargetFramework)' != 'net6.0-windows'">3.1.*</FrameworkVersion>
     <FrameworkVersion Condition="'$(TargetFramework)' == 'net5.0'">5.*</FrameworkVersion>
-    <FrameworkVersion Condition="'$(TargetFramework)' == 'net6.0'">6.*</FrameworkVersion>
-    <SwashbuckleVersion Condition="'$(TargetFramework)' != 'net6.0'">5.*</SwashbuckleVersion>
-    <SwashbuckleVersion Condition="'$(TargetFramework)' == 'net6.0'">6.*</SwashbuckleVersion>
+    <FrameworkVersion Condition="'$(TargetFramework)' == 'net6.0' Or '$(TargetFramework)' == 'net6.0-windows'">6.*</FrameworkVersion>
+    <FrameworkVersion Condition="'$(TargetFramework)' == 'net7.0'">7.*</FrameworkVersion>
+    <SystemTextJsonVersion Condition="'$(TargetFramework)' != 'net6.0' And '$(TargetFramework)' != 'net7.0' And '$(TargetFramework)' != 'net6.0-windows'">5.*</SystemTextJsonVersion>
+    <SystemTextJsonVersion Condition="'$(TargetFramework)' == 'net6.0' Or '$(TargetFramework)' == 'net7.0' Or '$(TargetFramework)' == 'net6.0-windows'">$(FrameworkVersion)</SystemTextJsonVersion>
+    <SwashbuckleVersion Condition="'$(TargetFramework)' != 'net6.0' And '$(TargetFramework)' != 'net7.0'">5.*</SwashbuckleVersion>
+    <SwashbuckleVersion Condition="'$(TargetFramework)' == 'net6.0' Or '$(TargetFramework)' == 'net7.0'">6.*</SwashbuckleVersion>
   </PropertyGroup>
 
   <ItemGroup>
     <!--build related-->
-    <!--<PackageReference Include="MinVer" Condition="'$(TargetFramework)' != 'net6.0'" Version="2.*" PrivateAssets="All" />-->
-    <!--<PackageReference Include="MinVer" Condition="'$(TargetFramework)' == 'net6.0'" Version="4.*" PrivateAssets="All" />-->
     <PackageReference Include="MinVer" Version="4.*" PrivateAssets="All" />
     <PackageReference Update="Microsoft.SourceLink.Gitea" Version="1.*" PrivateAssets="All" />
     <PackageReference Update="Microsoft.SourceLink.GitHub" Version="1.*" PrivateAssets="All" />
@@ -42,7 +43,7 @@
     <PackageReference Update="xunit.runner.visualstudio" Version="2.*" PrivateAssets="All" />
 
     <!--serilog and nlog-->
-    <PackageReference Update="Serilog" Version="[2.12.*-*,3)" />
+    <PackageReference Update="Serilog" Version="[2.*-*,3)" />
     <PackageReference Update="Serilog.AspNetCore" Version="[6.*-*,7)" />
     <PackageReference Update="Serilog.Enrichers.Thread" Version="[3.*-*,4)" />
     <PackageReference Update="Serilog.Extensions.Hosting" Version="[5.*-*,6)" />
@@ -102,6 +103,7 @@
     <PackageReference Update="Microsoft.Extensions.Caching.Abstractions" Version="$(FrameworkVersion)" />
     <PackageReference Update="Microsoft.Extensions.Caching.Memory" Version="$(FrameworkVersion)" />
     <PackageReference Update="Microsoft.Extensions.Caching.StackExchangeRedis" Version="$(FrameworkVersion)" />
+    <PackageReference Update="Microsoft.Extensions.Configuration" Version="$(FrameworkVersion)" />
     <PackageReference Update="Microsoft.Extensions.Configuration.Abstractions" Version="$(FrameworkVersion)" />
     <PackageReference Update="Microsoft.Extensions.Configuration.Binder" Version="$(FrameworkVersion)" />
     <PackageReference Update="Microsoft.Extensions.Configuration.CommandLine" Version="$(FrameworkVersion)" />
@@ -129,10 +131,10 @@
     <PackageReference Update="System.Drawing.Common" Version="$(FrameworkVersion)" />
     <PackageReference Update="System.Net.Http.Json" Version="$(FrameworkVersion)" />
     <PackageReference Update="System.Text.Encoding.CodePages" Version="$(FrameworkVersion)" />
-    <PackageReference Update="System.Text.Json" Condition="'$(TargetFramework)' != 'net6.0' And '$(TargetFramework)' != 'net7.0'" Version="5.*" />
-    <PackageReference Update="System.Text.Json" Condition="'$(TargetFramework)' == 'net6.0' Or '$(TargetFramework)' == 'net7.0'" Version="$(FrameworkBaselineVersion)" />
+    <PackageReference Update="System.Text.Json" Version="$(SystemTextJsonVersion)" />
 
     <!--microsoft asp.net core-->
+    <PackageReference Update="Microsoft.AspNetCore.Authentication.Certificate" Version="$(FrameworkVersion)" />
     <PackageReference Update="Microsoft.AspNetCore.Authentication.Facebook" Version="$(FrameworkVersion)" />
     <PackageReference Update="Microsoft.AspNetCore.Authentication.Google" Version="$(FrameworkVersion)" />
     <PackageReference Update="Microsoft.AspNetCore.Authentication.JwtBearer" Version="$(FrameworkVersion)" />
@@ -147,7 +149,7 @@
     <PackageReference Update="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="$(FrameworkVersion)" />
 
     <!--microsoft entity framework and data-->
-    <PackageReference Update="Microsoft.Data.SqlClient" Version="4.*" />
+    <PackageReference Update="Microsoft.Data.SqlClient" Version="5.*" />
     <PackageReference Update="Microsoft.EntityFrameworkCore.Cosmos" Version="$(FrameworkVersion)" />
     <PackageReference Update="Microsoft.EntityFrameworkCore" Version="$(FrameworkVersion)" />
     <PackageReference Update="Microsoft.EntityFrameworkCore.Design" Version="$(FrameworkVersion)" PrivateAssets="All" />
