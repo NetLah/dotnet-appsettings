@@ -2,7 +2,7 @@
   "profiles": {
     "DotnetAppSettings": {
       "commandName": "Project",
-      "commandLineArgs": "-p ../samples -v",
+      "commandLineArgs": "-p ../samples -v --slot-setting appsettings.slotSetting",
       "workingDirectory": "."
     }
   }

@@ -8,6 +8,7 @@ internal class RootCommand : HelpCommandBase
     private CommandArgument? _appsettingJsonArgs;
     private CommandOption? _path;
     private CommandOption? _outputFile;
+    private CommandOption? _slotSetting;
     private CommandOption? _arrayEnvironmentFormat;
     private CommandOption? _mapEnvironmentFormat;
     private CommandOption? _jsonEnvironmentFormat;
@@ -20,8 +21,9 @@ internal class RootCommand : HelpCommandBase
         command.FullName = "Convert appsettings.json to Azure AppService Configuration";
 
         _appsettingJsonArgs = command.Argument("appsettingsFiles", "appsettings.json appsettings.Production.json", true);
-        _path = command.Option("-p|--path", "path to appsettings.json, appsettings.Production.json", CommandOptionType.SingleValue);
-        _outputFile = command.Option("-o|--output-file", "path to output-file.json", CommandOptionType.SingleValue);
+        _path = command.Option("-p|--path <path>", "path to appsettings.json, appsettings.Production.json", CommandOptionType.SingleValue);
+        _outputFile = command.Option("-o|--output-file <output-file.json>", "path to output-file.json", CommandOptionType.SingleValue);
+        _slotSetting = command.Option("--slot-setting <appsettings.slotSetting>", "Specified file contains keys which SlotSetting=true", CommandOptionType.SingleValue);
         _arrayEnvironmentFormat = command.Option("-e|--environment", "output in docker compose environment Array syntax", CommandOptionType.NoValue);
         _mapEnvironmentFormat = command.Option("-m|--map-environment", "output in docker compose environment Map syntax", CommandOptionType.NoValue);
         _jsonEnvironmentFormat = command.Option("-j|--json-environment", "output in environment json", CommandOptionType.NoValue);
@@ -37,15 +39,55 @@ internal class RootCommand : HelpCommandBase
     {
         const string nullError = "Call Configure() method first";
 #pragma warning disable S112 // General exceptions should never be thrown
-        if (_appsettingJsonArgs == null) throw new NullReferenceException(nullError);
-        if (_path == null) throw new NullReferenceException(nullError);
-        if (_outputFile == null) throw new NullReferenceException(nullError);
-        if (_arrayEnvironmentFormat == null) throw new NullReferenceException(nullError);
-        if (_mapEnvironmentFormat == null) throw new NullReferenceException(nullError);
-        if (_jsonEnvironmentFormat == null) throw new NullReferenceException(nullError);
-        if (_textFormat == null) throw new NullReferenceException(nullError);
-        if (_skipSlotSetting == null) throw new NullReferenceException(nullError);
-        if (Command == null) throw new NullReferenceException(nullError);
+        if (_appsettingJsonArgs == null)
+        {
+            throw new NullReferenceException(nullError);
+        }
+
+        if (_path == null)
+        {
+            throw new NullReferenceException(nullError);
+        }
+
+        if (_outputFile == null)
+        {
+            throw new NullReferenceException(nullError);
+        }
+
+        if (_slotSetting == null)
+        {
+            throw new NullReferenceException(nullError);
+        }
+
+        if (_arrayEnvironmentFormat == null)
+        {
+            throw new NullReferenceException(nullError);
+        }
+
+        if (_mapEnvironmentFormat == null)
+        {
+            throw new NullReferenceException(nullError);
+        }
+
+        if (_jsonEnvironmentFormat == null)
+        {
+            throw new NullReferenceException(nullError);
+        }
+
+        if (_textFormat == null)
+        {
+            throw new NullReferenceException(nullError);
+        }
+
+        if (_skipSlotSetting == null)
+        {
+            throw new NullReferenceException(nullError);
+        }
+
+        if (Command == null)
+        {
+            throw new NullReferenceException(nullError);
+        }
 #pragma warning restore S112 // General exceptions should never be thrown
 
         var appsettingJsons = _appsettingJsonArgs.Values;
@@ -83,6 +125,31 @@ internal class RootCommand : HelpCommandBase
             }
         }
 
+        HashSet<string>? slotSettings = null;
+        var slotSettingFile = _slotSetting.Value();
+        if (slotSettingFile != null)
+        {
+            var slotSettingFullPath = Path.GetFullPath(Path.Combine(path, slotSettingFile));
+            if (!File.Exists(slotSettingFullPath))
+            {
+                Console.Error.WriteLine($"File not found: {slotSettingFullPath}");
+                Command.ShowHelp();
+                return 1;
+            }
+
+            slotSettings = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+            using var reader = new StreamReader(slotSettingFullPath);
+            string? line = null;
+            while ((line = reader.ReadLine()) != null)
+            {
+                line = line.Trim();
+                if (!string.IsNullOrEmpty(line) && !line.StartsWith('#') && !line.StartsWith(';'))
+                {
+                    slotSettings.Add(line);
+                }
+            }
+        }
+
         Stream output;
         var isOutputFile = _outputFile.HasValue();
         if (isOutputFile)
@@ -100,7 +167,8 @@ internal class RootCommand : HelpCommandBase
         {
             var formatter = FormatterFactory.Create(_mapEnvironmentFormat.HasValue(), _arrayEnvironmentFormat.HasValue(), _jsonEnvironmentFormat.HasValue(), _textFormat.HasValue());
             var converter = new ConfigurationConverter(pathAppsettingJsons);
-            await formatter.WriteAsync(output, converter.ConvertSettings(_skipSlotSetting.HasValue() ? new bool?() : false));
+            var defaultSlotSettingValue = _skipSlotSetting.HasValue() ? new bool?() : false;
+            await formatter.WriteAsync(output, converter.ConvertSettings(defaultSlotSettingValue, slotSettings));
 
             if (isOutputFile)
             {

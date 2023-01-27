@@ -4,7 +4,7 @@ namespace DotnetAppSettings.Test;
 
 public class AppSettingConversionTest
 {
-    private const string FullAzure = @"[
+    private string FullAzure(bool slotSetting0 = false, bool slotSetting1 = false) => @"[
   {
     ""name"": ""!Key3"",
     ""value"": ""Value \u00263 \u002B 4"",
@@ -38,12 +38,12 @@ public class AppSettingConversionTest
   {
     ""name"": ""Logging__LogLevel__Microsoft"",
     ""value"": ""Warning"",
-    ""slotSetting"": false
+    ""slotSetting"": " + slotSetting1.ToString().ToLower() + @"
   },
   {
     ""name"": ""Logging__LogLevel__Microsoft.Hosting.Lifetime"",
     ""value"": ""Information"",
-    ""slotSetting"": false
+    ""slotSetting"": " + slotSetting0.ToString().ToLower() + @"
   }
 ]";
 
@@ -98,7 +98,31 @@ public class AppSettingConversionTest
     {
         var result = await AppSettingsExecuteAsync("Files/appsettings.json Files/appsettings.Development.json");
 
-        Assert.Equal(FullAzure, string.Join(Environment.NewLine, result));
+        Assert.Equal(FullAzure(), string.Join(Environment.NewLine, result));
+    }
+
+    [Fact]
+    public async Task Convert_Azure_MainDev_SlotSetting()
+    {
+        var result = await AppSettingsExecuteAsync("Files/appsettings.json Files/appsettings.Development.json --slot-setting Files/appsettings.slotSetting");
+
+        Assert.Equal(FullAzure(true, false), string.Join(Environment.NewLine, result));
+    }
+    
+    [Fact]
+    public async Task Convert_Azure_MainDev_SlotSetting2()
+    {
+        var result = await AppSettingsExecuteAsync("Files/appsettings.json Files/appsettings.Development.json --slot-setting Files/appsettings2.slotSetting");
+
+        Assert.Equal(FullAzure(false, true), string.Join(Environment.NewLine, result));
+    }
+    
+    [Fact]
+    public async Task Convert_Azure_MainDev_SlotSetting3()
+    {
+        var result = await AppSettingsExecuteAsync("Files/appsettings.json Files/appsettings.Development.json --slot-setting Files/appsettings3.slotSetting");
+
+        Assert.Equal(FullAzure(true, true), string.Join(Environment.NewLine, result));
     }
 
     [Fact]
@@ -153,7 +177,7 @@ public class AppSettingConversionTest
     public async Task Convert_Azure_Path()
     {
         var result = await AppSettingsExecuteAsync("--path Files appsettings.json appsettings.Development.json");
-        Assert.Equal(FullAzure, string.Join(Environment.NewLine, result));
+        Assert.Equal(FullAzure(), string.Join(Environment.NewLine, result));
     }
 
     [Fact]
