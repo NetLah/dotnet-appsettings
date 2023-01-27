@@ -18,12 +18,12 @@ internal class RootCommand : HelpCommandBase
     public override void Configure(CommandLineApplication command)
     {
         command.Name = "appsettings";
-        command.FullName = "Convert appsettings.json to Azure AppService Configuration";
+        command.FullName = "Convert appsettings (.json) to Azure AppService Application Settings";
 
         _appsettingJsonArgs = command.Argument("appsettingsFiles", "appsettings.json appsettings.Production.json", true);
         _path = command.Option("-p|--path <path>", "path to appsettings.json, appsettings.Production.json", CommandOptionType.SingleValue);
         _outputFile = command.Option("-o|--output-file <output-file.json>", "path to output-file.json", CommandOptionType.SingleValue);
-        _slotSetting = command.Option("--slot-setting <appsettings.slotSetting>", "Specified file contains keys which SlotSetting=true", CommandOptionType.SingleValue);
+        _slotSetting = command.Option("--slot-setting <appsettings.slotSetting>", "specified file contains keys which SlotSetting=true", CommandOptionType.SingleValue);
         _arrayEnvironmentFormat = command.Option("-e|--environment", "output in docker compose environment Array syntax", CommandOptionType.NoValue);
         _mapEnvironmentFormat = command.Option("-m|--map-environment", "output in docker compose environment Map syntax", CommandOptionType.NoValue);
         _jsonEnvironmentFormat = command.Option("-j|--json-environment", "output in environment json", CommandOptionType.NoValue);

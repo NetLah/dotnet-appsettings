@@ -1,6 +1,6 @@
 # dotnet-appsettings - .NET tools
 
-The tool to convert appsettings.json files to Docker Compose environment format (yaml) or json name-value format support bulk update to Application Settings on Azure AppService.
+Tool convert appsettings (.json) files to Azure AppService Application Settings json name-value format (support bulk updating) or Docker Compose environment format (yaml).
 
 ## Nuget package
 
@@ -223,20 +223,25 @@ Command line local:
 Command line tool path:
   "C:\Development\Project1\tools\appsettings.exe" [appsettings.json [appsettings.Production.json]]
 
+C:\>appsettings.exe --help
+
+Convert appsettings (.json) to Azure AppService Application Settings v0.2.3 Build:2023-01-27T11:30:11.448+08:00 .NET:.NETCoreApp,Version=v7.0
+
 Usage: appsettings [arguments] [options]
 
 Arguments:
   appsettingsFiles  appsettings.json appsettings.Production.json
 
 Options:
-  -p|--path              path to appsettings.json, appsettings.Production.json
-  -o|--output-file       path to output-file.json
-  -e|--environment       output in docker compose environment Array syntax
-  -m|--map-environment   output in docker compose environment Map syntax
-  -j|--json-environment  output in environment json
-  -t|--text              output in text format
-  --skip-slot-setting    skip SlotSetting=false
-  --version              Show version information
-  -?|-h|--help           Show help information
-  -v|--verbose           Show verbose output.
+  -p|--path <path>                          path to appsettings.json, appsettings.Production.json
+  -o|--output-file <output-file.json>       path to output-file.json
+  --slot-setting <appsettings.slotSetting>  specified file contains keys which SlotSetting=true
+  -e|--environment                          output in docker compose environment Array syntax
+  -m|--map-environment                      output in docker compose environment Map syntax
+  -j|--json-environment                     output in environment json
+  -t|--text                                 output in text format
+  --skip-slot-setting                       skip SlotSetting=false
+  --version                                 Show version information
+  -?|-h|--help                              Show help information
+  -v|--verbose                              Show verbose output.
 ```
