@@ -4,7 +4,9 @@ namespace DotnetAppSettings.Test;
 
 public class AppSettingConversionTest
 {
-    private string FullAzure(bool slotSetting0 = false, bool slotSetting1 = false) => @"[
+    private string FullAzure(bool slotSetting0 = false, bool slotSetting1 = false)
+    {
+        return @"[
   {
     ""name"": ""!Key3"",
     ""value"": ""Value \u00263 \u002B 4"",
@@ -46,8 +48,12 @@ public class AppSettingConversionTest
     ""slotSetting"": " + slotSetting0.ToString().ToLower() + @"
   }
 ]";
+    }
 
-    private static Task<string[]> AppSettingsExecuteAsync(string parameters) => SimpleExecuteHelper.ExecuteAsync("DotnetAppSettings", parameters);
+    private static Task<string[]> AppSettingsExecuteAsync(string parameters)
+    {
+        return SimpleExecuteHelper.ExecuteAsync("DotnetAppSettings", parameters);
+    }
 
     [Fact]
     public async Task Convert_Azure_Main()
@@ -108,7 +114,7 @@ public class AppSettingConversionTest
 
         Assert.Equal(FullAzure(true, false), string.Join(Environment.NewLine, result));
     }
-    
+
     [Fact]
     public async Task Convert_Azure_MainDev_SlotSetting2()
     {
@@ -116,7 +122,7 @@ public class AppSettingConversionTest
 
         Assert.Equal(FullAzure(false, true), string.Join(Environment.NewLine, result));
     }
-    
+
     [Fact]
     public async Task Convert_Azure_MainDev_SlotSetting3()
     {
@@ -254,5 +260,25 @@ Warning
 Logging__LogLevel__Microsoft.Hosting.Lifetime
 Information
 ", string.Join(Environment.NewLine, result));
+    }
+
+    [Fact]
+    public async Task Version_Text()
+    {
+        var versionString =
+#if NETCOREAPP3_1
+            " .NET:.NETCoreApp,Version=v3.1"
+#elif NET5_0
+            " .NET:.NETCoreApp,Version=v5.0"
+#elif NET6_0
+            " .NET:.NETCoreApp,Version=v6.0"
+#elif NET7_0
+            " .NET:.NETCoreApp,Version=v7.0"
+#else
+            " .NET:.NETCoreApp,Version=v8.0"
+#endif
+            ;
+        var result = await AppSettingsExecuteAsync("--version");
+        Assert.EndsWith(versionString, string.Join(string.Empty, result));
     }
 }

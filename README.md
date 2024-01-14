@@ -12,9 +12,9 @@ Tool convert appsettings (.json) files to Azure AppService Application Settings 
 
 ## Getting started
 
-### .NET 7.0 Support
+### .NET 8.0 Support
 
-- Package version `0.2.2` support .NET Runtime and .NET SDK 7.0, .NET SDK 6.0, .NET SDK 5.0 and .NETCore SDK 3.1.
+- Package version `1.0.0` supports .NET SDK 8.0, .NET SDK 7.0, .NET SDK 6.0, .NET SDK 5.0 and .NETCore SDK 3.1.
 
 ### Samples
 
@@ -92,6 +92,7 @@ services:
   }
 }
 ```
+
 - Azure AppService / Configuration / Application Settings / Advanced edit (https://docs.microsoft.com/en-us/azure/app-service/configure-common#edit-in-bulk)
 
 ![Edit in bulk](https://raw.githubusercontent.com/NetLah/dotnet-appsettings/main/docs/bulk-edit-app-settings.png)
@@ -163,7 +164,7 @@ Information
 
 ### Installation dotnet tool globally
 
-Download and install the [.NET 7.0 SDK](https://dotnet.microsoft.com/en-us/download/dotnet/7.0) or [.NET 6.0 SDK](https://dotnet.microsoft.com/en-us/download/dotnet/6.0). The tool still support .NETCore 3.1 SDK and .NET 5.0 SDK for a moment. Once installed the .NET SDK, run the following command to install the tool:
+Download and install the [.NET SDK](https://dotnet.microsoft.com/en-us/download/dotnet). The tool still supports .NETCore 3.1 SDK and .NET 5.0 SDK for a moment. Once installed the .NET SDK, run the following command to install the tool:
 
 ```
 dotnet tool install --global dotnet-appsettings
