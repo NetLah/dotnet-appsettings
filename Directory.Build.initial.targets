@@ -7,5 +7,9 @@
     <FrameworkVersion Condition="'$(NET_7_0)' == true">7.*</FrameworkVersion>
     <FrameworkVersion Condition="'$(NET_8_0)' == true">8.*</FrameworkVersion>
   </PropertyGroup>
+  
+  <PropertyGroup>
+    <SystemTextJsonVersion Condition="'$(SystemTextJsonVersion)' == '' And '$(NET_5_0_LESS)' == true">6.*</SystemTextJsonVersion>
+  </PropertyGroup>
 
 </Project>
