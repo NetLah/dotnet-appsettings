@@ -51,3 +51,10 @@ jobs:
       - if: ${{ success() && runner.os == 'Windows' && (github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/tags/')) }}
         name: Publish Nuget to GitHub registry
         run: dotnet nuget push .\artifacts\packages\*.nupkg -s https://nuget.pkg.github.com/NetLah/index.json --skip-duplicate -k ${{ secrets.PUSH_GITHUB_REGISTRY_TOKEN }}
+
+      - name: Upload artifacts
+        if: github.event_name == 'push'
+        uses: actions/upload-artifact@v4
+        with:
+          name: DotnetAppSettings
+          path: artifacts/packages
