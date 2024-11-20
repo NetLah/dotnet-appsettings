@@ -28,19 +28,30 @@ internal class CommandBase
 
     protected bool IsVerbose => VerboseOption?.HasValue() == true;
 
-    protected virtual Task ValidateAsync() => Task.CompletedTask;
+    protected virtual Task ValidateAsync()
+    {
+        return Task.CompletedTask;
+    }
 
-    protected virtual Task<int> ExecuteAsync() => SuccessAsync();
+    protected virtual Task<int> ExecuteAsync()
+    {
+        return SuccessAsync();
+    }
 
-#pragma warning disable CA1822 // Mark members as static
-    protected Task<int> SuccessAsync() => Task.FromResult(0);
-#pragma warning restore CA1822 // Mark members as static    
+    protected Task<int> SuccessAsync()
+    {
+        return Task.FromResult(0);
+    }
 
     protected static string GetLongVersion()
-        => $"v{Assembly.InformationalVersion} Build:{Assembly.BuildTimestampLocal} .NET:{Assembly.FrameworkName}";
+    {
+        return $"v{Assembly.InformationalVersion} Build:{Assembly.BuildTimestampLocal} .NET:{Assembly.FrameworkName}";
+    }
 
     protected static string GetShortVersion()
-        => $"v{Assembly.InformationalVersion.Split('+')[0]} Build:{Assembly.BuildTimestampLocal} .NET:{Assembly.FrameworkName}";
+    {
+        return $"v{Assembly.InformationalVersion.Split('+')[0]} Build:{Assembly.BuildTimestampLocal} .NET:{Assembly.FrameworkName}";
+    }
 
     private static IAssemblyInfo? _assembly;
 
