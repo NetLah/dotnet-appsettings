@@ -38,7 +38,6 @@ internal class RootCommand : HelpCommandBase
     protected override async Task<int> ExecuteAsync()
     {
         const string nullError = "Call Configure() method first";
-#pragma warning disable S112 // General exceptions should never be thrown
         if (_appsettingJsonArgs == null)
         {
             throw new NullReferenceException(nullError);
@@ -88,7 +87,6 @@ internal class RootCommand : HelpCommandBase
         {
             throw new NullReferenceException(nullError);
         }
-#pragma warning restore S112 // General exceptions should never be thrown
 
         var appsettingJsons = _appsettingJsonArgs.Values;
         appsettingJsons ??= new List<string>();

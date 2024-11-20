@@ -7,7 +7,8 @@ namespace DotnetAppSettings.Test;
 public class ConvertTest
 {
     private static List<AzureAppSetting> GetSettings(bool? slotSetting)
-        => new()
+    {
+        return new()
         {
             new AzureAppSetting("Key1", "Value1", slotSetting),
             new AzureAppSetting("Key2__Sub2", "2021", slotSetting),
@@ -18,6 +19,7 @@ public class ConvertTest
             new AzureAppSetting("Parrent__Child1__Key4", "", slotSetting),
             new AzureAppSetting("Parrent__Child1__Key5", "", slotSetting),
         };
+    }
 
     private static IConfigurationRoot GetAppsettingsConfiguration(string resourceName = "DotnetAppSettings.Test.appsettings.json")
     {
@@ -28,7 +30,9 @@ public class ConvertTest
             .GetManifestResourceStream(resourceName);
 
         if (resource != null)
+        {
             builder.AddJsonStream(resource);
+        }
 
         return builder.Build();
     }
@@ -56,15 +60,19 @@ public class ConvertTest
     private class AzureAppSettingComparer : IEqualityComparer<AzureAppSetting>
     {
         public bool Equals([AllowNull] AzureAppSetting? x, [AllowNull] AzureAppSetting? y)
-            => x == null && y == null ||
-                (x != null && y != null &&
-                x.Name == y.Name &&
-                x.SlotSetting == y.SlotSetting &&
-                x.Value == y.Value);
+        {
+            return (x == null && y == null) ||
+                        (x != null && y != null &&
+                        x.Name == y.Name &&
+                        x.SlotSetting == y.SlotSetting &&
+                        x.Value == y.Value);
+        }
 
         public int GetHashCode([DisallowNull] AzureAppSetting obj)
-            => (obj.Name?.GetHashCode() ?? 0) ^
-            (obj.SlotSetting?.GetHashCode() ?? 0) ^
-            (obj.Value?.GetHashCode() ?? 0);
+        {
+            return (obj.Name?.GetHashCode() ?? 0) ^
+                    (obj.SlotSetting?.GetHashCode() ?? 0) ^
+                    (obj.Value?.GetHashCode() ?? 0);
+        }
     }
 }

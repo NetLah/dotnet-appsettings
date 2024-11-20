@@ -1,7 +1,7 @@
 <Project>
 
   <PropertyGroup>
-    <CurrentFrameworkVersion>6.0.26;7.0.15;8.0.1</CurrentFrameworkVersion>
+    <CurrentFrameworkVersion>6.0.36;8.0.11;9.0.0</CurrentFrameworkVersion>
     <ImportedCommonProps>True</ImportedCommonProps>
 
     <NET_ID>$([MSBuild]::GetTargetFrameworkIdentifier($(TargetFramework)))</NET_ID>
@@ -31,39 +31,59 @@
     <NET_10_0 Condition="'$(NET_VER)' == '10.0' And '$(NET_ID)' == '.NETCoreApp'">True</NET_10_0>
 
     <NET_3_1_LESS>False</NET_3_1_LESS>
+    <NET_3_1_UP>False</NET_3_1_UP>
     <NET_5_0_LESS>False</NET_5_0_LESS>
+    <NET_5_0_UP>False</NET_5_0_UP>
     <NET_6_0_LESS>False</NET_6_0_LESS>
     <NET_6_0_UP>False</NET_6_0_UP>
     <NET_7_0_LESS>False</NET_7_0_LESS>
     <NET_7_0_UP>False</NET_7_0_UP>
     <NET_8_0_LESS>False</NET_8_0_LESS>
     <NET_8_0_UP>False</NET_8_0_UP>
+    <NET_9_0_LESS>False</NET_9_0_LESS>
+    <NET_9_0_UP>False</NET_9_0_UP>
     <NET_3_1_LESS Condition="'$(NET_VER)' &lt;= '3.1' And '$(NET_ID)' == '.NETCoreApp'">True</NET_3_1_LESS>
+    <NET_3_1_UP Condition="'$(NET_VER)' &gt;= '3.1' And '$(NET_ID)' == '.NETCoreApp'">True</NET_3_1_UP>
     <NET_5_0_LESS Condition="'$(NET_VER)' &lt; '6.0' And '$(NET_ID)' == '.NETCoreApp'">True</NET_5_0_LESS>
+    <NET_5_0_UP Condition="'$(NET_VER)' &gt;= '5.0' And '$(NET_ID)' == '.NETCoreApp'">True</NET_5_0_UP>
     <NET_6_0_LESS Condition="'$(NET_VER)' &lt; '7.0' And '$(NET_ID)' == '.NETCoreApp'">True</NET_6_0_LESS>
     <NET_6_0_UP Condition="'$(NET_VER)' &gt;= '6.0' And '$(NET_ID)' == '.NETCoreApp'">True</NET_6_0_UP>
     <NET_7_0_LESS Condition="'$(NET_VER)' &lt; '8.0' And '$(NET_ID)' == '.NETCoreApp'">True</NET_7_0_LESS>
     <NET_7_0_UP Condition="'$(NET_VER)' &gt;= '7.0' And '$(NET_ID)' == '.NETCoreApp'">True</NET_7_0_UP>
     <NET_8_0_LESS Condition="'$(NET_VER)' &lt;= '8.0' And '$(NET_ID)' == '.NETCoreApp'">True</NET_8_0_LESS>
     <NET_8_0_UP Condition="'$(NET_VER)' &gt;= '8.0' And '$(NET_ID)' == '.NETCoreApp'">True</NET_8_0_UP>
-
+    <NET_9_0_LESS Condition="'$(NET_VER)' &lt;= '9.0' And '$(NET_ID)' == '.NETCoreApp'">True</NET_9_0_LESS>
+    <NET_9_0_UP Condition="'$(NET_VER)' &gt;= '9.0' And '$(NET_ID)' == '.NETCoreApp'">True</NET_9_0_UP>
+    
     <NET_3_1_LESS_OR_STD>False</NET_3_1_LESS_OR_STD>
+    <NET_3_1_UP_OR_STD>False</NET_3_1_UP_OR_STD>
     <NET_5_0_LESS_OR_STD>False</NET_5_0_LESS_OR_STD>
+    <NET_5_0_UP_OR_STD>False</NET_5_0_UP_OR_STD>
     <NET_6_0_LESS_OR_STD>False</NET_6_0_LESS_OR_STD>
     <NET_6_0_UP_OR_STD>False</NET_6_0_UP_OR_STD>
     <NET_7_0_LESS_OR_STD>False</NET_7_0_LESS_OR_STD>
     <NET_7_0_UP_OR_STD>False</NET_7_0_UP_OR_STD>
     <NET_8_0_LESS_OR_STD>False</NET_8_0_LESS_OR_STD>
     <NET_8_0_UP_OR_STD>False</NET_8_0_UP_OR_STD>
+    <NET_9_0_LESS_OR_STD>False</NET_9_0_LESS_OR_STD>
+    <NET_9_0_UP_OR_STD>False</NET_9_0_UP_OR_STD>
     <NET_3_1_LESS_OR_STD Condition="'$(NET_3_1_LESS)' == true Or '$(NET_STD_2_X)' == true">True</NET_3_1_LESS_OR_STD>
+    <NET_3_1_UP_OR_STD Condition="'$(NET_3_1_UP)' == true Or '$(NET_STD_2_X)' == true">True</NET_3_1_UP_OR_STD>
     <NET_5_0_LESS_OR_STD Condition="'$(NET_5_0_LESS)' == true Or '$(NET_STD_2_X)' == true">True</NET_5_0_LESS_OR_STD>
+    <NET_5_0_UP_OR_STD Condition="'$(NET_5_0_UP)' == true Or '$(NET_STD_2_X)' == true">True</NET_5_0_UP_OR_STD>
     <NET_6_0_LESS_OR_STD Condition="'$(NET_6_0_LESS)' == true Or '$(NET_STD_2_X)' == true">True</NET_6_0_LESS_OR_STD>
     <NET_6_0_UP_OR_STD Condition="'$(NET_6_0_UP)' == true Or '$(NET_STD_2_X)' == true">True</NET_6_0_UP_OR_STD>
     <NET_7_0_LESS_OR_STD Condition="'$(NET_7_0_LESS)' == true Or '$(NET_STD_2_X)' == true">True</NET_7_0_LESS_OR_STD>
     <NET_7_0_UP_OR_STD Condition="'$(NET_7_0_UP)' == true Or '$(NET_STD_2_X)' == true">True</NET_7_0_UP_OR_STD>
     <NET_8_0_LESS_OR_STD Condition="'$(NET_8_0_LESS)' == true Or '$(NET_STD_2_X)' == true">True</NET_8_0_LESS_OR_STD>
     <NET_8_0_UP_OR_STD Condition="'$(NET_8_0_UP)' == true Or '$(NET_STD_2_X)' == true">True</NET_8_0_UP_OR_STD>
+    <NET_9_0_LESS_OR_STD Condition="'$(NET_9_0_LESS)' == true Or '$(NET_STD_2_X)' == true">True</NET_9_0_LESS_OR_STD>
+    <NET_9_0_UP_OR_STD Condition="'$(NET_9_0_UP)' == true Or '$(NET_STD_2_X)' == true">True</NET_9_0_UP_OR_STD>
 
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <DefineConstants Condition="'$(NET_6_0_LESS)' == true">NET_6_0_LESS</DefineConstants>
   </PropertyGroup>
 
   <Import Project="$(MSBuildThisFileDirectory)Common.override.props" Condition="Exists('$(MSBuildThisFileDirectory)Common.override.props')" />

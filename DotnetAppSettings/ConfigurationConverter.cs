@@ -8,7 +8,10 @@ internal class ConfigurationConverter
 
     public ConfigurationConverter(IEnumerable<string> appsettingsJsons) : this(BuildConfig(appsettingsJsons)) { }
 
-    public ConfigurationConverter(IConfiguration configuration) => _configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
+    public ConfigurationConverter(IConfiguration configuration)
+    {
+        _configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
+    }
 
     internal static IConfigurationRoot BuildConfig(IEnumerable<string> appsettingsJsons)
     {
