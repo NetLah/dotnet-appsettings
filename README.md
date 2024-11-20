@@ -14,7 +14,10 @@ Tool convert appsettings (.json) files to Azure AppService Application Settings 
 
 ### .NET 8.0 Support
 
-- Package version `1.0.0` supports .NET SDK 8.0, .NET SDK 7.0, .NET SDK 6.0, .NET SDK 5.0 and .NETCore SDK 3.1.
+Package version `1.0.0` supports:
+- .NET SDK 9.0
+- .NET SDK 8.0
+- .NET SDK 6.0
 
 ### Samples
 
@@ -164,7 +167,7 @@ Information
 
 ### Installation dotnet tool globally
 
-Download and install the [.NET SDK](https://dotnet.microsoft.com/en-us/download/dotnet). The tool still supports .NETCore 3.1 SDK and .NET 5.0 SDK for a moment. Once installed the .NET SDK, run the following command to install the tool:
+Download and install the [.NET SDK](https://dotnet.microsoft.com/en-us/download/dotnet). Once installed the .NET SDK, run the following command to install the tool:
 
 ```
 dotnet tool install --global dotnet-appsettings
