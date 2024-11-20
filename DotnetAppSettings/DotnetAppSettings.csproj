@@ -6,7 +6,7 @@
     <PackAsTool>true</PackAsTool>
     <ToolCommandName>appsettings</ToolCommandName>
     <PackageTags>azure;convert;appsettings;secrets;dotnet;tool;aspnetcore;appservice;app-service;configuration;settings;application-settings;json;jsonpath</PackageTags>
-    <TargetFrameworks>net8.0;net7.0;net6.0;net5.0;netcoreapp3.1</TargetFrameworks>
+    <TargetFrameworks>net9.0;net8.0;net6.0</TargetFrameworks>
     <Description>Dotnet tool AppSettings convert appsettings.json to Azure AppService Configuration Application Settings</Description>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageReadmeFile>README.md</PackageReadmeFile>
@@ -20,7 +20,6 @@
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" />
     <PackageReference Include="NetLah.Abstractions" />
     <PackageReference Include="NetLah.Extensions.CommandLineUtils" />
-    <PackageReference Include="System.Text.Json" Condition="'$(NET_3_1)' == true" />
     <PackageReference Include="YamlDotNet" />
   </ItemGroup>
 
