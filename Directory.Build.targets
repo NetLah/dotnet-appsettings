@@ -53,6 +53,11 @@
     <SwashbuckleVersion Condition="'$(SwashbuckleVersion)' == ''">6.*</SwashbuckleVersion>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(SerilogVersion)' == ''">
+    <SerilogVersion Condition="'$(NET_8_0_UP)' == true">9.*</SerilogVersion>
+    <SerilogVersion Condition="'$(SerilogVersion)' == ''">8.*</SerilogVersion>
+  </PropertyGroup>
+
   <ItemGroup>
     <!--build related-->
     <PackageReference Update="Bullseye" Version="5.*" />
@@ -73,6 +78,7 @@
     <PackageReference Update="NetLah.Extensions.Logging.Serilog" Version="1.*-*" />
     <PackageReference Update="NetLah.Extensions.Logging.Serilog.AspNetCore" Version="1.*-*" />
     <PackageReference Update="NetLah.Extensions.SpaServices.Hosting" Version="1.*-*" />
+    <PackageReference Update="NetLah.Extensions.SpaServices.Hosting" Version="1.0.*-*" Condition="'$(NET_7_0_LESS)' == true" />
     <PackageReference Update="Testing.Dynamic.Json" Version="1.*-*" />
 
     <!--tests-->
@@ -86,24 +92,8 @@
     <PackageReference Update="TeamCity.VSTest.TestAdapter" Version="1.*" />
     <PackageReference Update="xunit" Version="2.*" />
     <PackageReference Update="xunit.extensibility.core" Version="2.*" />
-    <PackageReference Update="xunit.runner.visualstudio" Version="2.*" PrivateAssets="All" />
-
-    <!--serilog-->
-    <PackageReference Update="Serilog" Version="4.*" />
-    <PackageReference Update="Serilog.AspNetCore" Version="8.*" />
-    <PackageReference Update="Serilog.Enrichers.CorrelationId" Version="3.*" />
-    <PackageReference Update="Serilog.Enrichers.Environment" Version="3.*" />
-    <PackageReference Update="Serilog.Enrichers.Thread" Version="4.*" />
-    <PackageReference Update="Serilog.Extensions.Hosting" Version="8.*" />
-    <PackageReference Update="Serilog.Extensions.Logging" Version="8.*" />
-    <PackageReference Update="Serilog.Formatting.Compact" Version="3.*" />
-    <PackageReference Update="Serilog.Settings.Configuration" Version="8.*" />
-    <!--<PackageReference Update="Serilog.Sinks.AzureAnalytics" Version="5.*" />-->
-    <PackageReference Update="Serilog.Sinks.Console" Version="6.*" />
-    <PackageReference Update="Serilog.Sinks.Debug" Version="3.*" />
-    <PackageReference Update="Serilog.Sinks.File" Version="6.*" />
-    <PackageReference Update="Serilog.Sinks.PeriodicBatching" Version="5.*" />
-    <PackageReference Update="Serilog.Sinks.Seq" Version="8.*" />
+    <PackageReference Update="xunit.runner.visualstudio" Version="3.*" PrivateAssets="All" Condition="'$(NET_6_0_UP)' == true" />
+    <PackageReference Update="xunit.runner.visualstudio" Version="2.4.*" PrivateAssets="All" Condition="'$(NET_5_0_LESS)' == true" />
 
     <!--misc-->
     <PackageReference Update="AutoMapper" Version="13.*" Condition="'$(NET_6_0_UP)' == true" />
@@ -146,7 +136,7 @@
     <PackageReference Update="Std.UriTemplate" Version="2.*" />
     <PackageReference Update="Tavis.UriTemplates" Version="2.*" />
     <PackageReference Update="TimeZoneConverter" Version="5.*" />
-    <PackageReference Update="YamlDotNet" Version="11.*" />
+    <PackageReference Update="YamlDotNet" Version="16.*" />
     <PackageReference Update="ZXing.Net" Version="0.16.*" />
 
     <!--microsoft other-->
@@ -166,7 +156,8 @@
     <PackageReference Update="Microsoft.VisualStudio.Validation" Version="17.*" />
     <PackageReference Update="System.ClientModel" Version="1.*" />
     <PackageReference Update="System.CommandLine" Version="2.*-*" />
-    <PackageReference Update="System.Memory" Version="4.5.4" />
+    <PackageReference Update="System.Memory" Version="4.*" />
+    <PackageReference Update="System.Runtime.CompilerServices.Unsafe" Version="6.*" />
     <PackageReference Update="System.Runtime.Loader" Version="4.3.0" />
     <PackageReference Update="System.Runtime.Extensions" Version="4.3.1" />
     <PackageReference Update="System.Security.Principal.Windows" Version="5.*" />
@@ -246,7 +237,7 @@
     <PackageReference Update="System.Formats.Asn1" Version="$(FrameworkVersion)" />
     <PackageReference Update="System.IO.Hashing" Version="$(FrameworkVersion)" />
     <PackageReference Update="System.IO.Pipelines" Version="$(FrameworkVersion)" />
-    <PackageReference Update="System.Memory.Data" Version="$(FrameworkVersion)" />
+    <PackageReference Update="System.Memory.Data" Version="$(SystemTextJsonVersion)" />
     <PackageReference Update="System.Net.Http.Json" Version="$(FrameworkVersion)" />
     <PackageReference Update="System.Reflection.Metadata" Version="$(FrameworkVersion)" />
     <PackageReference Update="System.Reflection.Metadata" Version="1.*" Condition="'$(NET_3_1_LESS_OR_STD)' == true" />
@@ -310,14 +301,14 @@
     <PackageReference Update="Npgsql" Version="$(NpgsqlVersion)" />
     <PackageReference Update="Npgsql.EntityFrameworkCore.PostgreSQL" Version="$(NpgsqlEFCoreFrameworkVersion)" />
     <PackageReference Update="EFCore.NamingConventions" Version="$(EFCoreFrameworkVersion)" />
-    <PackageReference Update="Tec.EFCore.NamingConventions" Version="9.*-*" />
+    <!--<PackageReference Update="Tec.EFCore.NamingConventions" Version="9.*-*" />-->
 
     <!--identityserver4 -->
     <PackageReference Update="IdentityModel" Version="7.*" />
     <PackageReference Update="IdentityModel.AspNetCore.OAuth2Introspection" Version="6.*" />
 
     <!--azure-->
-    <PackageReference Update="Azure.Communication.Email" Version="1.*" />
+    <PackageReference Update="Azure.Communication.Email" Version="1.*-*" />
     <PackageReference Update="Azure.Containers.ContainerRegistry" Version="1.*-*" />
     <PackageReference Update="Azure.Core" Version="1.*" />
     <PackageReference Update="Azure.Core.Amqp" Version="1.*" />
@@ -421,6 +412,23 @@
     <PackageReference Update="SSH.NET" Version="2020.*" />
     <PackageReference Update="PgpCore" Version="5.*" />
 
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(NET_6_0_UP)' == true">
+    <PackageReference Update="Serilog" Version="4.*" />
+    <PackageReference Update="Serilog.AspNetCore" Version="$(SerilogVersion)" />
+    <PackageReference Update="Serilog.Enrichers.CorrelationId" Version="3.*" />
+    <PackageReference Update="Serilog.Enrichers.Environment" Version="3.*" />
+    <PackageReference Update="Serilog.Enrichers.Thread" Version="4.*" />
+    <PackageReference Update="Serilog.Extensions.Hosting" Version="$(SerilogVersion)" />
+    <PackageReference Update="Serilog.Extensions.Logging" Version="$(SerilogVersion)" />
+    <PackageReference Update="Serilog.Formatting.Compact" Version="3.*" />
+    <PackageReference Update="Serilog.Settings.Configuration" Version="$(SerilogVersion)" />
+    <PackageReference Update="Serilog.Sinks.Console" Version="6.*" />
+    <PackageReference Update="Serilog.Sinks.Debug" Version="3.*" />
+    <PackageReference Update="Serilog.Sinks.File" Version="6.*" />
+    <PackageReference Update="Serilog.Sinks.PeriodicBatching" Version="5.*" />
+    <PackageReference Update="Serilog.Sinks.Seq" Version="9.*" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(NET_3_1_LESS_OR_STD)' == true">
