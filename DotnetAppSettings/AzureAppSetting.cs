@@ -2,22 +2,15 @@
 
 namespace DotnetAppSettings;
 
-internal class AzureAppSetting
+internal class AzureAppSetting(string name, string? value, bool? slotSetting)
 {
-    public AzureAppSetting(string name, string? value, bool? slotSetting)
-    {
-        Name = name ?? throw new ArgumentNullException(nameof(name));
-        Value = value;
-        SlotSetting = slotSetting;
-    }
-
     [JsonPropertyName("name")]
-    public string Name { get; }
+    public string Name { get; } = name ?? throw new ArgumentNullException(nameof(name));
 
     [JsonPropertyName("value")]
-    public string? Value { get; }
+    public string? Value { get; } = value;
 
     [JsonPropertyName("slotSetting")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public bool? SlotSetting { get; }
+    public bool? SlotSetting { get; } = slotSetting;
 }

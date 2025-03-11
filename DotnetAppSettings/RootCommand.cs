@@ -89,7 +89,7 @@ internal class RootCommand : HelpCommandBase
         }
 
         var appsettingJsons = _appsettingJsonArgs.Values;
-        appsettingJsons ??= new List<string>();
+        appsettingJsons ??= [];
         if (appsettingJsons.Count == 0)
         {
             appsettingJsons.Add("appsettings.json");
