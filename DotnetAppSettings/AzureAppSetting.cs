@@ -1,7 +1,9 @@
-﻿using System.Text.Json.Serialization;
+﻿using System.Diagnostics;
+using System.Text.Json.Serialization;
 
 namespace DotnetAppSettings;
 
+[DebuggerDisplay("{Name}={Value}, SlotSetting: {SlotSetting}")]
 internal class AzureAppSetting(string name, string? value, bool? slotSetting)
 {
     [JsonPropertyName("name")]

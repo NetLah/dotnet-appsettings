@@ -8,17 +8,21 @@ public class ConvertTest
 {
     private static List<AzureAppSetting> GetSettings(bool? slotSetting)
     {
-        return new()
-        {
+        return
+        [
             new AzureAppSetting("Key1", "Value1", slotSetting),
             new AzureAppSetting("Key2__Sub2", "2021", slotSetting),
             new AzureAppSetting("Parrent__Array6__0__Name", "Element1", slotSetting),
             new AzureAppSetting("Parrent__Array6__1__Additional", "Add2", slotSetting),
             new AzureAppSetting("Parrent__Array6__1__Name", "Element2", slotSetting),
             new AzureAppSetting("Parrent__Child1__Key3", "Value3", slotSetting),
+#if NET8_0_OR_GREATER
+            new AzureAppSetting("Parrent__Child1__Key4", null, slotSetting),
+#else
             new AzureAppSetting("Parrent__Child1__Key4", "", slotSetting),
+#endif
             new AzureAppSetting("Parrent__Child1__Key5", "", slotSetting),
-        };
+        ];
     }
 
     private static IConfigurationRoot GetAppsettingsConfiguration(string resourceName = "DotnetAppSettings.Test.appsettings.json")
@@ -44,7 +48,9 @@ public class ConvertTest
 
         var result = service.ConvertSettings(false);
 
-        Assert.Equal(result, GetSettings(false), new AzureAppSettingComparer());
+        var expected = GetSettings(false);
+
+        Assert.Equal(result, expected, new AzureAppSettingComparer());
     }
 
     [Fact]
@@ -54,7 +60,9 @@ public class ConvertTest
 
         var result = service.ConvertSettings(null);
 
-        Assert.Equal(result, GetSettings(null), new AzureAppSettingComparer());
+        var expected = GetSettings(null);
+
+        Assert.Equal(result, expected, new AzureAppSettingComparer());
     }
 
     private class AzureAppSettingComparer : IEqualityComparer<AzureAppSetting>

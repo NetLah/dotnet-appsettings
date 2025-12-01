@@ -1,15 +1,15 @@
 <Project>
 
-  <PropertyGroup Condition="'$(FrameworkVersion)' == ''">
+  <!--<PropertyGroup Condition="'$(FrameworkVersion)' == ''">
     <FrameworkVersion Condition="'$(NET_3_1)' == true">3.*</FrameworkVersion>
     <FrameworkVersion Condition="'$(NET_5_0)' == true">5.*</FrameworkVersion>
     <FrameworkVersion Condition="'$(NET_6_0)' == true">6.*</FrameworkVersion>
     <FrameworkVersion Condition="'$(NET_7_0)' == true">7.*</FrameworkVersion>
     <FrameworkVersion Condition="'$(NET_8_0)' == true">8.*</FrameworkVersion>
-  </PropertyGroup>
+  </PropertyGroup>-->
   
-  <PropertyGroup>
+  <!--<PropertyGroup>
     <SystemTextJsonVersion Condition="'$(SystemTextJsonVersion)' == '' And '$(NET_5_0_LESS)' == true">6.*</SystemTextJsonVersion>
-  </PropertyGroup>
+  </PropertyGroup>-->
 
 </Project>

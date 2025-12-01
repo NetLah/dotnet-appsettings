@@ -20,9 +20,21 @@ internal class ConfigurationConverter(IConfiguration configuration)
 
     public List<AzureAppSetting> ConvertSettings(bool? defaultSlotSettingValue, HashSet<string>? slotSettings = null)
     {
+        var selectKeys = new HashSet<string>();
+        foreach (var item in _configuration
+            .AsEnumerable(false)
+            .Select(x => x.Key)
+            .OrderByDescending(x => x.Length))
+        {
+            if (!selectKeys.Any(x => x.StartsWith($"{item}:"))) // filter sectionKey, support null value
+            {
+                selectKeys.Add(item);
+            }
+        }
+
         var result = _configuration
             .AsEnumerable(false)
-            .Where(kv => kv.Value != null)
+            .Where(kv => selectKeys.Contains(kv.Key))
             .OrderBy(kv => kv.Key)
             .Select(kv =>
             {

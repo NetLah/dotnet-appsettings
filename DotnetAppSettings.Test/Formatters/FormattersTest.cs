@@ -5,12 +5,12 @@ namespace DotnetAppSettings.Test.Formatters;
 
 public class FormattersTest
 {
-    private readonly List<AzureAppSetting> settings = new()
-    {
+    private readonly List<AzureAppSetting> settings =
+    [
         new AzureAppSetting("KEY", "VALUE1", false),
         new AzureAppSetting("key__subkey", "Value 2", true),
         new AzureAppSetting("array3__0", "Value3", null),
-    };
+    ];
 
     private static string ReadContent(MemoryStream stream)
     {
