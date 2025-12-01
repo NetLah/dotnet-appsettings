@@ -276,8 +276,10 @@ Information
             " .NET:.NETCoreApp,Version=v7.0"
 #elif NET8_0
             " .NET:.NETCoreApp,Version=v8.0"
-#else
+#elif NET9_0
             " .NET:.NETCoreApp,Version=v9.0"
+#else
+            " .NET:.NETCoreApp,Version=v10.0"
 #endif
             ;
         var result = await AppSettingsExecuteAsync("--version");

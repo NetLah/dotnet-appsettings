@@ -12,9 +12,10 @@ Tool convert appsettings (.json) files to Azure AppService Application Settings 
 
 ## Getting started
 
-### .NET 8.0 Support
+### .NET 10.0 Support
 
-Package version `1.0.0` supports:
+Package version [1.0.1](https://www.nuget.org/packages/dotnet-appsettings/1.0.1) supports:
+- .NET SDK 10.0
 - .NET SDK 9.0
 - .NET SDK 8.0
 - .NET SDK 6.0

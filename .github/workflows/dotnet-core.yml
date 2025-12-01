@@ -21,13 +21,14 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Setup .NET Core 9.0.x, 8.0.x and 6.0.x
+      - name: Setup .NET Core 10.0.x, 9.0.x, 8.0.x and 6.0.x
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: |
             6.0.x
             8.0.x
             9.0.x
+            10.0.x
 
       - name: dotnet info
         run: dotnet --info
@@ -51,10 +52,13 @@ jobs:
           name: DotnetAppSettings
           path: artifacts/packages
 
-      - if: ${{ success() && runner.os == 'Windows' && (github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/tags/')) }}
-        name: Push MyGet
-        run: dotnet nuget push .\artifacts\packages\*.nupkg -s https://www.myget.org/F/netlah/api/v2/package -k ${{ secrets.MYGET }}
+      - if: ${{ success() && runner.os == 'Windows' && (github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/tags/') || contains(github.ref, 'refs/heads/release/')) }}
+        name: Publish Nuget main to MyGet, GitHub and CloudSmith
+        run: |
+          dotnet nuget push .\artifacts\packages\*.nupkg -s https://www.myget.org/F/netlah/api/v2/package -k ${{ secrets.MYGET }}
+          dotnet nuget push .\artifacts\packages\*.nupkg -s https://nuget.pkg.github.com/NetLah/index.json --skip-duplicate -k ${{ secrets.PUSH_GITHUB_REGISTRY_TOKEN }}
+          dotnet nuget push .\artifacts\packages\*.nupkg -s https://nuget.cloudsmith.io/netlah/net-main1/v3/index.json --skip-duplicate -k ${{ secrets.PUSH_CLOUDSMITH_TOKEN }} 
 
-      - if: ${{ success() && runner.os == 'Windows' && (github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/tags/')) }}
-        name: Publish Nuget to GitHub registry
-        run: dotnet nuget push .\artifacts\packages\*.nupkg -s https://nuget.pkg.github.com/NetLah/index.json --skip-duplicate -k ${{ secrets.PUSH_GITHUB_REGISTRY_TOKEN }}
+      - name: Push CloudSmith dev
+        if: ${{ success() && runner.os == 'Windows' && (startsWith(github.ref, 'refs/heads/dev') || startsWith(github.ref, 'refs/heads/feature')) }}
+        run: dotnet nuget push .\artifacts\packages\*.nupkg -s https://nuget.cloudsmith.io/netlah/net-dev1/v3/index.json --skip-duplicate -k ${{ secrets.PUSH_CLOUDSMITH_TOKEN }} 
