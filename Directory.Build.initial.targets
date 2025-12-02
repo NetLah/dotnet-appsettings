@@ -1,5 +1,6 @@
 <Project>
 
+  <!-- Utilize Microsoft.AspNetCore.App library to minimize package size -->
   <PropertyGroup Condition="'$(FrameworkVersion)' == ''">
     <FrameworkVersion Condition="'$(NET_6_0)' == true">6.*</FrameworkVersion>
     <FrameworkVersion Condition="'$(NET_8_0)' == true">8.*</FrameworkVersion>
