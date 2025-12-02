@@ -16,7 +16,7 @@ public class ConvertTest
             new AzureAppSetting("Parrent__Array6__1__Additional", "Add2", slotSetting),
             new AzureAppSetting("Parrent__Array6__1__Name", "Element2", slotSetting),
             new AzureAppSetting("Parrent__Child1__Key3", "Value3", slotSetting),
-#if NET8_0_OR_GREATER
+#if NET10_0_OR_GREATER
             new AzureAppSetting("Parrent__Child1__Key4", null, slotSetting),
 #else
             new AzureAppSetting("Parrent__Child1__Key4", "", slotSetting),
