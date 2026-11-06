@@ -1,6 +1,6 @@
-# dotnet-appsettings - .NET tools
+# dotnet-appsettings – .NET Tool
 
-Tool convert appsettings (.json) files to Azure AppService Application Settings json name-value format (support bulk updating) or Docker Compose environment format (yaml).
+A .NET CLI tool that converts appsettings.json files into Azure App Service Application Settings JSON (name-value pairs, supporting bulk updates) or Docker Compose environment YAML format.
 
 ## Nuget package
 
@@ -14,11 +14,11 @@ Tool convert appsettings (.json) files to Azure AppService Application Settings 
 
 ### .NET 10.0 Support
 
-Package version [1.0.1](https://www.nuget.org/packages/dotnet-appsettings/1.0.1) supports:
+Package version [1.8.0](https://www.nuget.org/packages/dotnet-appsettings/1.8.0) supports:
+- .NET SDK 11.0
 - .NET SDK 10.0
 - .NET SDK 9.0
 - .NET SDK 8.0
-- .NET SDK 6.0
 
 ### Samples
 

@@ -1,0 +1,13 @@
+<Solution>
+  <Folder Name="/Solution Items/">
+    <File Path=".editorconfig" />
+    <File Path=".github/workflows/dotnet-core.yml" />
+    <File Path="Directory.Build.initial.targets" />
+    <File Path="Directory.Build.override.targets" />
+    <File Path="Directory.Build.props" />
+    <File Path="Directory.Build.targets" />
+    <File Path="README.md" />
+  </Folder>
+  <Project Path="DotnetAppSettings.Test/DotnetAppSettings.Test.csproj" />
+  <Project Path="DotnetAppSettings/DotnetAppSettings.csproj" />
+</Solution>
