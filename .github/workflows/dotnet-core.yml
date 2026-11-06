@@ -13,22 +13,27 @@ jobs:
       fail-fast: false
       matrix:
         #runs-on: [macos-latest, ubuntu-22.04, windows-latest]
-        runs-on: [ubuntu-22.04, windows-latest]
+        runs-on: [ubuntu-latest, windows-latest]
     name: ${{ matrix.runs-on }}
     runs-on: ${{ matrix.runs-on }}
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-
-      - name: Setup .NET Core 10.0.x, 9.0.x, 8.0.x and 6.0.x
+          
+      - name: Setup .NET 10.0.x, 9.0.x, and 8.0.x
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: |
-            6.0.x
             8.0.x
             9.0.x
             10.0.x
+            
+      - name: Setup .NET 11.0.x Preview
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 11.0.x
+          dotnet-quality: "preview"
 
       - name: dotnet info
         run: dotnet --info
