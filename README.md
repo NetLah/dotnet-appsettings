@@ -12,7 +12,7 @@ A .NET CLI tool that converts appsettings.json files into Azure App Service Appl
 
 ## Getting started
 
-### .NET 10.0 Support
+### .NET 11.0 Support
 
 Package version [1.8.0](https://www.nuget.org/packages/dotnet-appsettings/1.8.0) supports:
 - .NET SDK 11.0
